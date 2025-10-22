@@ -1,11 +1,11 @@
 'use client';
 
-import { notFound } from 'next/navigation';
-import { HeroSection } from '@/components/sections/HeroSection';
 import { BenefitsGrid } from '@/components/sections/BenefitsGrid';
 import { CTASection } from '@/components/sections/CTASection';
+import { HeroSection } from '@/components/sections/HeroSection';
 import { useQuoteStore } from '@/stores/quote-store';
-import { Shield, CheckCircle, TrendingDown, Clock, Award, Users } from 'lucide-react';
+import { Award, CheckCircle, Clock, Shield, TrendingDown, Users } from 'lucide-react';
+import { notFound } from 'next/navigation';
 
 const personalInsuranceData: Record<string, any> = {
   auto: {
