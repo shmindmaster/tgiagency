@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import { ReactNode } from 'react';
 
 interface HeroSectionProps {
   title: string;
@@ -15,6 +16,8 @@ interface HeroSectionProps {
     href: string;
   };
   backgroundImage?: string;
+  imageAlt?: string;
+  priorityImage?: boolean;
   variant?: 'default' | 'centered' | 'compact';
   children?: ReactNode;
 }
@@ -26,6 +29,8 @@ export function HeroSection({
   primaryCta,
   secondaryCta,
   backgroundImage,
+  imageAlt = '',
+  priorityImage = false,
   variant = 'default',
   children,
 }: HeroSectionProps) {
@@ -41,10 +46,15 @@ export function HeroSection({
       )}
     >
       {backgroundImage && (
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        >
+        <div className="absolute inset-0">
+          <Image
+            src={backgroundImage}
+            alt={imageAlt || subtitle || title}
+            fill
+            priority={priorityImage}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
           <div className="absolute inset-0 bg-primary/80" />
         </div>
       )}
