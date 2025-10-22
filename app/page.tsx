@@ -1,26 +1,27 @@
 'use client';
 
-import { HeroSection } from '@/components/sections/HeroSection';
 import { BenefitsGrid } from '@/components/sections/BenefitsGrid';
-import { InsuranceCardGrid } from '@/components/sections/InsuranceCardGrid';
-import { TestimonialsCarousel } from '@/components/sections/TestimonialsCarousel';
 import { CTASection } from '@/components/sections/CTASection';
+import { HeroSection } from '@/components/sections/HeroSection';
+import { InsuranceCardGrid } from '@/components/sections/InsuranceCardGrid';
+import { PartnersSection } from '@/components/sections/PartnersSection';
+import { TestimonialsCarousel } from '@/components/sections/TestimonialsCarousel';
 import { useQuoteStore } from '@/stores/quote-store';
 import {
-  Shield,
-  Clock,
-  Users,
-  TrendingDown,
-  CheckCircle,
-  Award,
-  Car,
-  Home as HomeIcon,
-  Building2,
-  Heart,
   Anchor,
+  Award,
+  Building2,
+  Car,
+  CheckCircle,
+  Clock,
   Droplets,
+  FileCheck,
+  Heart,
+  Home as HomeIcon,
   Key,
-  FileCheck
+  Shield,
+  TrendingDown,
+  Users
 } from 'lucide-react';
 
 export default function Home() {
@@ -169,6 +170,8 @@ export default function Home() {
         title="Comprehensive Insurance Solutions"
         subtitle="COVERAGE OPTIONS"
       />
+
+      <PartnersSection />
 
       <TestimonialsCarousel
         testimonials={testimonials}

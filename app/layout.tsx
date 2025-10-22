@@ -1,6 +1,8 @@
+import { WebVitals } from '@/components/analytics/WebVitals';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { QuoteModal } from '@/components/quote/QuoteModal';
+import { BreadcrumbsSchema } from '@/components/seo/BreadcrumbsSchema';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
@@ -187,10 +189,13 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className={inter.className}>
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-primary text-white px-4 py-2 rounded-md z-50">Skip to content</a>
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main id="main" className="min-h-screen focus:outline-none">{children}</main>
         <Footer />
         <QuoteModal />
+        <BreadcrumbsSchema />
+        <WebVitals />
 
         {/* Google Analytics 4 */}
         {ga4Id && (
