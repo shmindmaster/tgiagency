@@ -3,7 +3,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuoteStore } from '@/stores/quote-store';
-import { quoteStepTwoSchema, QuoteStepTwoData } from '@/lib/validations';
+import type { QuoteStepTwoData } from '@/lib/validations';
+import { quoteStepTwoSchema } from '@/lib/validations';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';

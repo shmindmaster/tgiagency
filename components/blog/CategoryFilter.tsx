@@ -1,4 +1,5 @@
-import { BlogCategory } from '@/lib/content/types';
+/* eslint-disable no-unused-vars */
+import type { BlogCategory } from '@/lib/content/types';
 
 const categories: { key?: BlogCategory; label: string }[] = [
   { label: 'All' },
@@ -9,7 +10,8 @@ const categories: { key?: BlogCategory; label: string }[] = [
 
 interface Props {
   activeCategory?: BlogCategory;
-  onCategoryChange: (category?: BlogCategory) => void;
+  // Parameter name intentionally generic; usage occurs in parent implementations.
+  onCategoryChange: (_?: BlogCategory) => void;
 }
 
 export function CategoryFilter({ activeCategory, onCategoryChange }: Props) {

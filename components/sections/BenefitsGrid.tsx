@@ -1,6 +1,5 @@
-import { ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import type { LucideIcon } from 'lucide-react';
 
 interface Benefit {
   icon: LucideIcon;

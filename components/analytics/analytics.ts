@@ -5,17 +5,6 @@
  * Supports Google Analytics 4 and Microsoft Clarity
  */
 
-interface GAEvent {
-  action: string;
-  category: string;
-  label?: string;
-  value?: number;
-}
-
-interface QuoteEvent {
-  step: number;
-  insuranceType?: string;
-}
 
 export const trackEvent = (eventName: string, params?: Record<string, any>) => {
   // Google Analytics 4

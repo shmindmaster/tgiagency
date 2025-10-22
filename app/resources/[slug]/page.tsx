@@ -3,7 +3,7 @@ import { BlogPostContent } from '@/components/blog/BlogPostContent';
 import { BlogPostHeader } from '@/components/blog/BlogPostHeader';
 import { RelatedPosts } from '@/components/blog/RelatedPosts';
 import { generateStaticPostParams, getPostBySlug } from '@/lib/content/posts';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export function generateStaticParams() {
   return generateStaticPostParams();
@@ -11,7 +11,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = getPostBySlug(params.slug);
-  if (!post) return { title: 'Post Not Found | TGI Agency' };
+  if (!post) {return { title: 'Post Not Found | TGI Agency' };}
   return {
     title: `${post.title} | TGI Agency`,
     description: post.description || post.excerpt,
@@ -32,7 +32,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
-  if (!post) return <div className="container mx-auto px-4 py-24"><h1 className="text-3xl font-bold">Post Not Found</h1></div>;
+  if (!post) {return <div className="container mx-auto px-4 py-24"><h1 className="text-3xl font-bold">Post Not Found</h1></div>;}
 
   const jsonLd = post.schema ? {
     '@context': 'https://schema.org',

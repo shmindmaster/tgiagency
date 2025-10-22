@@ -3,10 +3,9 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useQuoteStore } from '@/stores/quote-store';
 import { QuoteFormWizard } from './QuoteFormWizard';
-import { X } from 'lucide-react';
 
 export function QuoteModal() {
-  const { isModalOpen, closeModal, resetForm } = useQuoteStore();
+  const { isModalOpen, closeModal } = useQuoteStore();
 
   const handleClose = () => {
     closeModal();

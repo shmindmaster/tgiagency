@@ -1,12 +1,13 @@
 // ESLint Flat Config for Next.js 16 + React 19 + TypeScript 5.9
 // Built with accessibility and performance considerations.
-import js from '@eslint/js';
-import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
 import { includeIgnoreFile } from '@eslint/compat';
-import path from 'node:path';
+import js from '@eslint/js';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import reactPlugin from 'eslint-plugin-react';
+import globals from 'globals';
 import fs from 'node:fs';
+import path from 'node:path';
 
 const gitignorePath = path.resolve('.gitignore');
 const ignores = fs.existsSync(gitignorePath) ? [includeIgnoreFile(gitignorePath)] : [];
@@ -34,6 +35,10 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
+      react: reactPlugin,
+    },
+    settings: {
+      react: { version: 'detect' },
     },
     rules: {
       // TypeScript specific best practices
@@ -44,6 +49,10 @@ export default [
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'eqeqeq': ['error', 'smart'],
       'curly': ['error', 'all'],
+      // React specific adjustments for React 19 automatic runtime
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off',
+      'react/jsx-uses-vars': 'error',
     },
   },
   {

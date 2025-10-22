@@ -1,24 +1,20 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuoteStore } from '@/stores/quote-store';
-import { quoteStepThreeSchema, QuoteStepThreeData } from '@/lib/validations';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import type { QuoteStepThreeData } from '@/lib/validations';
+import { quoteStepThreeSchema } from '@/lib/validations';
+import { useQuoteStore } from '@/stores/quote-store';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 export function StepThree() {
   const { formData, updateFormData, nextStep, prevStep } = useQuoteStore();
   const insuranceType = formData.insuranceType;
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<QuoteStepThreeData>({
+  const { register, handleSubmit, setValue } = useForm<QuoteStepThreeData>({
     resolver: zodResolver(quoteStepThreeSchema),
     defaultValues: {
       propertyType: formData.propertyType || '',

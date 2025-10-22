@@ -1,6 +1,7 @@
 import { quoteSubmissionSchema } from '@/lib/validations';
 import { createClient } from '@supabase/supabase-js';
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest} from 'next/server';
+import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
 // Rate limiting store (in-memory, resets on server restart)

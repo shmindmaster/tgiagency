@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { BlogCategory, Post, PostFrontMatter, PostMeta } from './types';
+import type { BlogCategory, Post, PostFrontMatter, PostMeta } from './types';
 
 // Directory containing markdown source (currently under docs)
 const BLOG_DIR = path.join(process.cwd(), 'docs', 'content', 'blogs');
@@ -12,15 +12,15 @@ function safeReadDir(dir: string): string[] {
 }
 
 function parseFrontMatter(source: string): { fm: Partial<PostFrontMatter>; body: string } {
-  if (!source.startsWith('---')) return { fm: {}, body: source };
+  if (!source.startsWith('---')) { return { fm: {}, body: source }; }
   const end = source.indexOf('\n---', 3);
-  if (end === -1) return { fm: {}, body: source };
+  if (end === -1) { return { fm: {}, body: source }; }
   const raw = source.substring(3, end).trim();
   const body = source.substring(end + 4).trim();
   const fm: Record<string, any> = {};
   raw.split(/\r?\n/).forEach(line => {
     const idx = line.indexOf(':');
-    if (idx === -1) return;
+    if (idx === -1) { return; }
     const key = line.substring(0, idx).trim();
     let value = line.substring(idx + 1).trim();
     if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
@@ -28,7 +28,7 @@ function parseFrontMatter(source: string): { fm: Partial<PostFrontMatter>; body:
     }
     if (value.startsWith('[') && value.endsWith(']')) {
       const inner = value.slice(1, -1).trim();
-      fm[key] = inner ? inner.split(',').map(v => v.trim().replace(/^['\"]|['\"]$/g, '')) : [];
+      fm[key] = inner ? inner.split(',').map(v => v.trim().replace(/^['"]|['"]$/g, '')) : [];
     } else if (value === 'true' || value === 'false') {
       fm[key] = value === 'true';
     } else {
@@ -48,7 +48,7 @@ function markdownToHtml(md: string): string {
   const flushList = () => { if (inList) { html += '</ul>'; inList = false; } };
   const flushCode = () => {
     if (inCodeFence) {
-      html += `<pre><code${inCodeFence.lang ? ` class=\"language-${inCodeFence.lang}\"` : ''}>${escape(inCodeFence.lines.join('\n'))}</code></pre>`;
+      html += `<pre><code${inCodeFence.lang ? ` class="language-${inCodeFence.lang}"` : ''}>${escape(inCodeFence.lines.join('\n'))}</code></pre>`;
       inCodeFence = null;
     }
   };
@@ -88,7 +88,7 @@ function markdownToHtml(md: string): string {
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
       .replace(/`([^`]+)`/g, '<code>$1</code>')
-      .replace(/\[(.+?)\]\((https?:[^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1<\/a>');
+      .replace(/\[(.+?)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
     html += `<p>${content}</p>`;
   }
   flushCode();
@@ -111,13 +111,13 @@ function normalizeSlug(slug: string): string {
 }
 
 export function getAllPosts(): PostMeta[] {
-  if (_cache) return _cache;
+  if (_cache) { return _cache; }
   const files = safeReadDir(BLOG_DIR).filter(f => f.endsWith('.md'));
   const metas: PostMeta[] = [];
   files.forEach(file => {
     const full = fs.readFileSync(path.join(BLOG_DIR, file), 'utf8');
     const { fm, body } = parseFrontMatter(full);
-    if (!fm.title || !fm.slug || !fm.category || !fm.publishedDate) return;
+    if (!fm.title || !fm.slug || !fm.category || !fm.publishedDate) { return; }
     const words = body.split(/\s+/).filter(Boolean).length;
     const meta: PostMeta = {
       title: fm.title,
@@ -146,11 +146,11 @@ export function getAllPosts(): PostMeta[] {
 
 export function getPostBySlug(slug: string): Post | null {
   const s = normalizeSlug(slug);
-  if (_fullCache[s]) return _fullCache[s];
+  if (_fullCache[s]) { return _fullCache[s]; }
   const meta = getAllPosts().find(p => p.slug === s);
-  if (!meta) return null;
+  if (!meta) { return null; }
   const fileName = safeReadDir(BLOG_DIR).find(f => fs.readFileSync(path.join(BLOG_DIR, f), 'utf8').includes(`slug: "/resources/${s}"`));
-  if (!fileName) return null;
+  if (!fileName) { return null; }
   const raw = fs.readFileSync(path.join(BLOG_DIR, fileName), 'utf8');
   const { body } = parseFrontMatter(raw);
   const html = markdownToHtml(body);
@@ -166,7 +166,7 @@ export function getPostsByCategory(cat?: BlogCategory): PostMeta[] {
 
 export function getRelatedPosts(slug: string, count = 3): PostMeta[] {
   const current = getPostBySlug(slug);
-  if (!current) return [];
+  if (!current) { return []; }
   return getAllPosts()
     .filter(p => p.slug !== current.slug && p.category === current.category)
     .slice(0, count);

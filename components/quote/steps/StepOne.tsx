@@ -3,7 +3,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuoteStore } from '@/stores/quote-store';
-import { quoteStepOneSchema, QuoteStepOneData } from '@/lib/validations';
+import type { QuoteStepOneData } from '@/lib/validations';
+import { quoteStepOneSchema } from '@/lib/validations';
 import { Button } from '@/components/ui/button';
 import { Car, Home, Building2, Heart, Anchor, Droplets, Users, Key, FileCheck } from 'lucide-react';
 

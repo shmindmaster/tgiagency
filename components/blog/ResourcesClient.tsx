@@ -2,7 +2,7 @@
 
 import { BlogCard } from '@/components/blog/BlogCard';
 import { CategoryFilter } from '@/components/blog/CategoryFilter';
-import { BlogCategory, PostMeta } from '@/lib/content/types';
+import type { BlogCategory, PostMeta } from '@/lib/content/types';
 import { useState } from 'react';
 
 export function ResourcesClient({ allPosts }: { allPosts: PostMeta[] }) {

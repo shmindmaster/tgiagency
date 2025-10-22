@@ -1,4 +1,4 @@
-import { PostMeta } from '@/lib/content/types';
+import type { PostMeta } from '@/lib/content/types';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';

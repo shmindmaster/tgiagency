@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface HeroSectionProps {
   title: string;

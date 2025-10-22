@@ -1,4 +1,4 @@
-import { Post } from '@/lib/content/types';
+import type { Post } from '@/lib/content/types';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 

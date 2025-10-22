@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -72,6 +73,7 @@ export function InsuranceCardGrid({
                       Learn more
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </div>
+                  </div>
                 </CardContent>
               </Card>
             </Link>

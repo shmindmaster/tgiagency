@@ -1,7 +1,7 @@
 import { ResourcesClient } from '@/components/blog/ResourcesClient';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { getAllPosts } from '@/lib/content/posts';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Insurance Resources & Guides | TGI Agency Texas',
