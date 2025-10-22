@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // Removed deprecated eslint configuration (Next.js 16 no longer supports eslint key here)
   images: { unoptimized: true },
 };
 
