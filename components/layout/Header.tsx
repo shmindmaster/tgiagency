@@ -44,24 +44,26 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center space-x-8">
+          {/* Primary navigation (included in style regression & a11y audit) */}
+          <nav className="hidden lg:flex items-center space-x-8" aria-label="Primary">
             <div
               className="relative group"
               onMouseEnter={() => setPersonalDropdownOpen(true)}
               onMouseLeave={() => setPersonalDropdownOpen(false)}
             >
-              <button className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors min-h-11 py-3">
+              <button className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors min-h-11 py-3" aria-haspopup="true" aria-expanded={personalDropdownOpen} aria-controls="personal-menu">
                 <span>Personal Insurance</span>
                 <ChevronDown className="h-4 w-4" />
               </button>
               {personalDropdownOpen && (
-                <div className="absolute left-0 top-full pt-2 w-48 sm:w-56 md:w-64">
-                  <div className="bg-white border border-gray-200 rounded-md shadow-lg py-2">
+                <div className="absolute left-0 top-full pt-2 w-48 sm:w-56 md:w-64" id="personal-menu" role="menu">
+                  <div className="bg-white border border-gray-200 rounded-md shadow-lg py-2" role="none">
                     {personalInsuranceLinks.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
                         className="block px-4 py-3 text-sm text-foreground hover:bg-gray-50 hover:text-primary transition-colors min-h-11 flex items-center"
+                        role="menuitem"
                       >
                         {link.label}
                       </Link>
@@ -76,18 +78,19 @@ export function Header() {
               onMouseEnter={() => setBusinessDropdownOpen(true)}
               onMouseLeave={() => setBusinessDropdownOpen(false)}
             >
-              <button className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors min-h-11 py-3">
+              <button className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors min-h-11 py-3" aria-haspopup="true" aria-expanded={businessDropdownOpen} aria-controls="business-menu">
                 <span>Business Insurance</span>
                 <ChevronDown className="h-4 w-4" />
               </button>
               {businessDropdownOpen && (
-                <div className="absolute left-0 top-full pt-2 w-48 sm:w-56 md:w-64">
-                  <div className="bg-white border border-gray-200 rounded-md shadow-lg py-2">
+                <div className="absolute left-0 top-full pt-2 w-48 sm:w-56 md:w-64" id="business-menu" role="menu">
+                  <div className="bg-white border border-gray-200 rounded-md shadow-lg py-2" role="none">
                     {businessInsuranceLinks.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
                         className="block px-4 py-3 text-sm text-foreground hover:bg-gray-50 hover:text-primary transition-colors min-h-11 flex items-center"
+                        role="menuitem"
                       >
                         {link.label}
                       </Link>
