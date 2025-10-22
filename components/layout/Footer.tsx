@@ -15,7 +15,8 @@ export function Footer() {
               alt="Texas General Insurance"
               width={180}
               height={60}
-              className="mb-4 h-auto w-auto max-w-[180px]"
+              className="mb-4 w-auto max-w-[180px]"
+              style={{ height: 'auto' }}
             />
             <h3 className="text-xl font-bold mb-4 sr-only">Texas General Insurance</h3>
             <p className="text-gray-300 mb-4">

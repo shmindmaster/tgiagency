@@ -21,7 +21,7 @@ export function PartnersSection() {
         <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
           {partners.map(p => (
             <div key={p.src} className="grayscale hover:grayscale-0 transition-all opacity-80 hover:opacity-100">
-              <Image src={p.src} alt={p.alt} width={p.width || 140} height={p.height || 60} loading="lazy" />
+              <Image src={p.src} alt={p.alt} width={p.width || 140} height={p.height || 60} loading="lazy" style={{ height: 'auto' }} />
             </div>
           ))}
         </div>
