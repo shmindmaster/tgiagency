@@ -104,14 +104,12 @@ jobs:
 ### **1. Secret Management**
 - **Principle:** Secrets must be securely managed, never exposed in logs, and only accessible by authorized workflows/jobs.
 - **Deeper Dive:**
-    - **Local Development:** Use local `.env` files for development - this is the standard and recommended approach. Never commit actual secrets to version control.
-    - **GitHub Secrets:** The primary mechanism for storing sensitive information in CI/CD. Encrypted at rest and only decrypted when passed to a runner.
+    - **GitHub Secrets:** The primary mechanism for storing sensitive information. Encrypted at rest and only decrypted when passed to a runner.
     - **Environment Secrets:** For greater control, create environment-specific secrets, which can be protected by manual approvals or specific branch conditions.
     - **Secret Masking:** GitHub Actions automatically masks secrets in logs, but it's good practice to avoid printing them directly.
     - **Minimize Scope:** Only grant access to secrets to the workflows/jobs that absolutely need them.
 - **Guidance for Copilot:**
-    - **Development:** Recommend local `.env` files for development with `.env.example` templates. This is the industry standard.
-    - **CI/CD:** Always instruct users to use GitHub Secrets for sensitive information (e.g., API keys, passwords, cloud credentials, tokens).
+    - Always instruct users to use GitHub Secrets for sensitive information (e.g., API keys, passwords, cloud credentials, tokens).
     - Access secrets via `secrets.<SECRET_NAME>` in workflows.
     - Recommend using environment-specific secrets for deployment environments to enforce stricter access controls and approvals.
     - Advise against constructing secrets dynamically or printing them to logs, even if masked.

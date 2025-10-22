@@ -1,8 +1,6 @@
-import { BlogCard } from '@/components/blog/BlogCard';
-import { CategoryFilter } from '@/components/blog/CategoryFilter';
+import { ResourcesClient } from '@/components/blog/ResourcesClient';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { getAllPosts, getPostsByCategory } from '@/lib/content/posts';
-import { BlogCategory } from '@/lib/content/types';
+import { getAllPosts } from '@/lib/content/posts';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,18 +8,15 @@ export const metadata: Metadata = {
   description: 'Expert insurance guides for Texas families and businesses. Learn about home, auto, flood, business coverage, and cost-saving strategies.',
 };
 
-interface ResourcesPageProps { searchParams?: { category?: BlogCategory }; }
+export default function ResourcesPage() {
+  const allPosts = getAllPosts();
 
-export default function ResourcesPage({ searchParams }: ResourcesPageProps) {
-  const activeCategory = searchParams?.category;
-  const posts = getPostsByCategory(activeCategory);
-  const all = getAllPosts();
   const collectionJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Insurance Resources & Guides',
     description: 'Expert insurance guides for Texas families and businesses',
-    hasPart: posts.slice(0, 50).map(p => ({
+    hasPart: allPosts.slice(0, 50).map(p => ({
       '@type': 'Article',
       headline: p.title,
       datePublished: p.publishedDate,
@@ -31,7 +26,7 @@ export default function ResourcesPage({ searchParams }: ResourcesPageProps) {
     })),
     mainEntity: {
       '@type': 'ItemList',
-      itemListElement: all.map((p, i) => ({
+      itemListElement: allPosts.map((p, i) => ({
         '@type': 'ListItem',
         position: i + 1,
         url: `/resources/${p.slug}`,
@@ -39,6 +34,7 @@ export default function ResourcesPage({ searchParams }: ResourcesPageProps) {
       }))
     }
   };
+
   return (
     <div>
       <HeroSection
@@ -48,18 +44,7 @@ export default function ResourcesPage({ searchParams }: ResourcesPageProps) {
         variant="compact"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
-      <section className="py-12 md:py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <CategoryFilter current={activeCategory} />
-          {posts.length ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((p, i) => <BlogCard key={p.slug} post={p} priority={i < 2} />)}
-            </div>
-          ) : (
-            <p className="text-center text-muted-foreground py-20">No posts available in this category yet.</p>
-          )}
-        </div>
-      </section>
+      <ResourcesClient allPosts={allPosts} />
     </div>
   );
 }

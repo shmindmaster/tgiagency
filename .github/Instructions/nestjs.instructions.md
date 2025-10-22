@@ -328,7 +328,7 @@ describe('UsersService', () => {
 - Implement rate limiting to prevent abuse
 - Use CORS appropriately for cross-origin requests
 - Sanitize outputs to prevent XSS attacks
-- **Environment Configuration**: Use local `.env` files for development (standard practice). Use environment variables or secrets management services for production configuration
+- Use environment variables for sensitive configuration
 
 ```typescript
 // Rate limiting example
@@ -347,8 +347,6 @@ export class AuthController {
 
 ### **Environment Configuration**
 - Use @nestjs/config for configuration management
-- **Development**: Use local `.env` files (standard practice) with `.env.example` templates
-- **Production**: Use environment variables or secrets management services
 - Validate configuration at startup
 - Use different configs for different environments
 

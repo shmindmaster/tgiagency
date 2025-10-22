@@ -1,5 +1,4 @@
 import { BlogCategory } from '@/lib/content/types';
-import Link from 'next/link';
 
 const categories: { key?: BlogCategory; label: string }[] = [
   { label: 'All' },
@@ -8,23 +7,25 @@ const categories: { key?: BlogCategory; label: string }[] = [
   { key: 'cost-savings', label: 'Cost Savings' },
 ];
 
-interface Props { current?: BlogCategory; }
+interface Props {
+  activeCategory?: BlogCategory;
+  onCategoryChange: (category?: BlogCategory) => void;
+}
 
-export function CategoryFilter({ current }: Props) {
+export function CategoryFilter({ activeCategory, onCategoryChange }: Props) {
   return (
     <div className="flex flex-wrap gap-2 mb-8">
       {categories.map(c => {
-        const active = c.key === current || (!c.key && !current);
-        const query = c.key ? `?category=${c.key}` : '';
+        const active = c.key === activeCategory || (!c.key && !activeCategory);
         return (
-          <Link
+          <button
             key={c.label}
-            href={`/resources${query}`}
+            onClick={() => onCategoryChange(c.key)}
             className={`px-4 py-2 rounded-md border text-sm font-medium transition-colors ${active ? 'bg-primary text-white border-primary' : 'bg-white hover:bg-accent/10 text-label border-border'}`}
             aria-current={active ? 'true' : undefined}
           >
             {c.label}
-          </Link>
+          </button>
         );
       })}
     </div>

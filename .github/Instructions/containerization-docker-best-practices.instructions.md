@@ -163,7 +163,7 @@ RUN apt-get update && \
 - **Principle:** Exclude unnecessary files from the build context to speed up builds and reduce image size.
 - **Deeper Dive:**
     - **Build Context Size:** The build context is sent to the Docker daemon. Large contexts slow down builds and consume resources.
-    - **Security:** Exclude sensitive files (like `.env`, `.git`) to prevent accidental inclusion in images. Note: `.env` files are standard for local development but should never be included in Docker images.
+    - **Security:** Exclude sensitive files (like `.env`, `.git`) to prevent accidental inclusion in images.
     - **Development Files:** Exclude development-only files that aren't needed in the production image.
     - **Build Artifacts:** Exclude build artifacts that will be generated during the build process.
 - **Guidance for Copilot:**
@@ -289,7 +289,6 @@ CMD ["node", "dist/main.js"]
 ### **8. Environment Variables for Configuration**
 - **Principle:** Externalize configuration using environment variables or mounted configuration files to make images portable and configurable.
 - **Deeper Dive:**
-    - **Development vs Production:** Use local `.env` files for development (standard practice). Use environment variables or secrets management for production.
     - **Runtime Configuration:** Use environment variables for configuration that varies between environments (databases, API endpoints, feature flags).
     - **Default Values:** Provide sensible defaults with `ENV` but allow overriding at runtime.
     - **Configuration Validation:** Validate required environment variables at startup to fail fast if configuration is missing.
@@ -299,7 +298,6 @@ CMD ["node", "dist/main.js"]
     - Recommend using environment variable validation in application startup code.
     - Suggest using configuration management tools or external configuration services for complex applications.
     - Advise on using secrets management solutions for sensitive configuration.
-    - **Development**: Recommend local `.env` files with `.env.example` templates for development workflows.
 - **Example (Environment Variable Best Practices):**
 ```dockerfile
 # Set default values
