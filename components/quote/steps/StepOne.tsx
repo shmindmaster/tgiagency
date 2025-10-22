@@ -64,7 +64,7 @@ export function StepOne() {
                 key={type.id}
                 type="button"
                 onClick={() => handleTypeSelect(type.id)}
-                className={`p-4 border-2 rounded-lg transition-all hover:border-secondary ${
+                className={`p-4 min-h-[6rem] border-2 rounded-lg transition-all hover:border-secondary ${
                   selectedType === type.id
                     ? 'border-secondary bg-accent/10'
                     : 'border-gray-200 hover:bg-gray-50'

@@ -59,7 +59,7 @@ export function ContactForm() {
 
         {isSuccess && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start space-x-3">
-            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
             <div>
               <p className="text-green-800 font-medium">Message sent successfully!</p>
               <p className="text-green-700 text-sm">We will get back to you within 24 hours.</p>

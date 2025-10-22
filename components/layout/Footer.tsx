@@ -22,24 +22,32 @@ export function Footer() {
             <p className="text-gray-300 mb-4">
               Your neighbors in Sugar Land, providing honest, personal insurance advice you can't get from a 1-800 number.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="Facebook">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="Twitter">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="LinkedIn">
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </div>
+            <nav aria-label="Social media" className="mt-2">
+              <ul className="flex gap-4">
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors min-h-11 min-w-11 flex items-center justify-center" aria-label="Texas General Insurance on Facebook">
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors min-h-11 min-w-11 flex items-center justify-center" aria-label="Texas General Insurance on Twitter">
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors min-h-11 min-w-11 flex items-center justify-center" aria-label="Texas General Insurance on LinkedIn">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Personal Insurance</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/personal/auto" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/personal/auto" className="text-gray-300 hover:text-white transition-colors inline-flex items-center min-h-11 py-2">
                   Auto Insurance
                 </Link>
               </li>
@@ -114,20 +122,20 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-2">
-                <MapPin className="h-5 w-5 text-gray-300 mt-0.5 flex-shrink-0" />
+                <MapPin className="h-5 w-5 text-gray-300 mt-0.5 shrink-0" />
                 <span className="text-gray-300">
                   132 Eldridge Rd, Suite C<br />
                   Sugar Land, TX 77478
                 </span>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone className="h-5 w-5 text-gray-300 flex-shrink-0" />
+                <Phone className="h-5 w-5 text-gray-300 shrink-0" />
                 <a href="tel:+12814944990" className="text-gray-300 hover:text-white transition-colors">
                   (281) 494-4990
                 </a>
               </li>
               <li className="flex items-center space-x-2">
-                <Mail className="h-5 w-5 text-gray-300 flex-shrink-0" />
+                <Mail className="h-5 w-5 text-gray-300 shrink-0" />
                 <a href="mailto:info@texasgeneralinsurance.com" className="text-gray-300 hover:text-white transition-colors">
                   info@tgiagency.com
                 </a>
@@ -146,14 +154,14 @@ export function Footer() {
           <p className="text-gray-300 text-sm mb-4 md:mb-0">
             &copy; {currentYear} Texas General Insurance. All rights reserved.
           </p>
-          <div className="flex space-x-6">
+          <nav aria-label="Legal" className="flex space-x-6">
             <Link href="/privacy-policy" className="text-gray-300 hover:text-white text-sm transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="text-gray-300 hover:text-white text-sm transition-colors">
               Terms of Service
             </Link>
-          </div>
+          </nav>
         </div>
       </div>
     </footer>

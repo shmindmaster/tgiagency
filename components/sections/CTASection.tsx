@@ -24,7 +24,7 @@ export function CTASection({
 }: CTASectionProps) {
   const backgroundStyles = {
     default: 'bg-gray-50',
-    gradient: 'bg-gradient-to-r from-primary to-accent',
+    gradient: 'bg-linear-to-r from-primary to-accent',
     solid: 'bg-secondary',
   };
 
@@ -45,12 +45,12 @@ export function CTASection({
             </p>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
             <Button
               size="lg"
               onClick={primaryCta.onClick}
               className={cn(
-                'text-lg px-8 py-6',
+                'text-lg px-8 py-4 min-h-14',
                 variant !== 'default' && 'bg-white text-primary hover:bg-gray-100'
               )}
             >
@@ -63,7 +63,7 @@ export function CTASection({
                 variant="outline"
                 asChild
                 className={cn(
-                  'text-lg px-8 py-6',
+                  'text-lg px-8 py-4 min-h-14',
                   variant !== 'default' && 'bg-transparent text-white border-white hover:bg-white/10'
                 )}
               >

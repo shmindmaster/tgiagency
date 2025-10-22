@@ -1,6 +1,9 @@
 import { BusinessPageClient } from '@/components/sections/BusinessPageClient';
 import { notFound } from 'next/navigation';
 
+// Next.js 16: Pre-render all business insurance pages at build time
+export const dynamic = 'force-static';
+
 const businessInsuranceData: Record<string, any> = {
   business: {
     title: 'Business Insurance in Texas',

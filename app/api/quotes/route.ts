@@ -1,8 +1,11 @@
 import { quoteSubmissionSchema } from '@/lib/validations';
 import { createClient } from '@supabase/supabase-js';
-import type { NextRequest} from 'next/server';
+import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
+
+// Next.js 16: API routes must be dynamic
+export const dynamic = 'force-dynamic';
 
 // Rate limiting store (in-memory, resets on server restart)
 // For production, consider Redis or a database-backed solution
@@ -161,9 +164,9 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           error: 'Invalid request data',
-          details: error.errors.map(e => ({
-            field: e.path.join('.'),
-            message: e.message,
+          details: error.issues.map(issue => ({
+            field: issue.path.join('.'),
+            message: issue.message,
           })),
         },
         { status: 400 }

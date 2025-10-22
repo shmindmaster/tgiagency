@@ -4,6 +4,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import type { Metadata } from 'next';
 
+// Next.js 16: Static contact page
+export const dynamic = 'force-static';
+
 export const metadata: Metadata = {
   title: 'Contact Us',
   description: 'Contact Texas General Insurance for personalized insurance guidance, quotes, claims assistance, and policy support.',
@@ -37,7 +40,7 @@ export default function ContactPage() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
                     <Phone className="h-6 w-6 text-secondary" />
                   </div>
                   <div>
@@ -57,7 +60,7 @@ export default function ContactPage() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
                     <Mail className="h-6 w-6 text-secondary" />
                   </div>
                   <div>
@@ -77,7 +80,7 @@ export default function ContactPage() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
                     <MapPin className="h-6 w-6 text-secondary" />
                   </div>
                   <div>

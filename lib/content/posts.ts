@@ -40,7 +40,7 @@ function parseFrontMatter(source: string): { fm: Partial<PostFrontMatter>; body:
 
 function markdownToHtml(md: string): string {
   // Lightweight markdown transformer (supports: headings, lists, blockquotes, bold, italic, code, links, hr)
-  const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const escape = (s: string) => s?.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') ?? '';
   let html = '';
   const lines = md.split(/\r?\n/);
   let inList = false;
@@ -67,18 +67,25 @@ function markdownToHtml(md: string): string {
     const trimmed = line.trimEnd();
     if (!trimmed.trim()) { flushList(); continue; }
     // headings
-    if (/^######\s+/.test(trimmed)) { flushList(); html += `<h6>${trimmed.replace(/^######\s+/, '')}</h6>`; continue; }
-    if (/^#####\s+/.test(trimmed)) { flushList(); html += `<h5>${trimmed.replace(/^#####\s+/, '')}</h5>`; continue; }
-    if (/^####\s+/.test(trimmed)) { flushList(); html += `<h4>${trimmed.replace(/^####\s+/, '')}</h4>`; continue; }
-    if (/^###\s+/.test(trimmed)) { flushList(); html += `<h3>${trimmed.replace(/^###\s+/, '')}</h3>`; continue; }
-    if (/^##\s+/.test(trimmed)) { flushList(); html += `<h2>${trimmed.replace(/^##\s+/, '')}</h2>`; continue; }
-    if (/^#\s+/.test(trimmed)) { flushList(); html += `<h1>${trimmed.replace(/^#\s+/, '')}</h1>`; continue; }
+    if (/^######\s+/.test(trimmed)) { flushList(); html += `<h6>${escape(trimmed.replace(/^######\s+/, ''))}</h6>`; continue; }
+    if (/^#####\s+/.test(trimmed)) { flushList(); html += `<h5>${escape(trimmed.replace(/^#####\s+/, ''))}</h5>`; continue; }
+    if (/^####\s+/.test(trimmed)) { flushList(); html += `<h4>${escape(trimmed.replace(/^####\s+/, ''))}</h4>`; continue; }
+    if (/^###\s+/.test(trimmed)) { flushList(); html += `<h3>${escape(trimmed.replace(/^###\s+/, ''))}</h3>`; continue; }
+    if (/^##\s+/.test(trimmed)) { flushList(); html += `<h2>${escape(trimmed.replace(/^##\s+/, ''))}</h2>`; continue; }
+    if (/^#\s+/.test(trimmed)) { flushList(); html += `<h1>${escape(trimmed.replace(/^#\s+/, ''))}</h1>`; continue; }
     // blockquote
-    if (/^>\s?/.test(trimmed)) { flushList(); html += `<blockquote>${trimmed.replace(/^>\s?/, '')}</blockquote>`; continue; }
+    if (/^>\s?/.test(trimmed)) { flushList(); html += `<blockquote>${escape(trimmed.replace(/^>\s?/, ''))}</blockquote>`; continue; }
     // list item
     if (/^[*-]\s+/.test(trimmed)) {
       if (!inList) { html += '<ul>'; inList = true; }
-      html += `<li>${trimmed.replace(/^[*-]\s+/, '')}</li>`; continue;
+      const itemContent = trimmed.replace(/^[*-]\s+/, '');
+      const processedItem = escape(itemContent)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\[(.+?)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      html += `<li>${processedItem}</li>`;
+      continue;
     }
     // horizontal rule
     if (/^---+$/.test(trimmed)) { flushList(); html += '<hr />'; continue; }
@@ -106,7 +113,11 @@ function deriveExcerpt(body: string): string {
   return para.replace(/\n/g, ' ').slice(0, 240).trim() + (para.length > 240 ? '…' : '');
 }
 
-function normalizeSlug(slug: string): string {
+function normalizeSlug(slug: string | undefined): string {
+  if (!slug) {
+    console.warn('[posts] normalizeSlug received undefined slug');
+    return '';
+  }
   return slug.replace(/^\/resources\//, '').replace(/^\//, '');
 }
 

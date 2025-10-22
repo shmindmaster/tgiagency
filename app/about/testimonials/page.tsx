@@ -5,6 +5,9 @@ import { Quote, Star } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+// Next.js 16: Static testimonials page
+export const dynamic = 'force-static';
+
 export const metadata: Metadata = {
   title: 'Client Testimonials - Texas General Insurance',
   description: 'Read what our clients say about the TGI experience. Real reviews from real neighbors in Sugar Land, Houston, and Richmond.',
@@ -42,7 +45,7 @@ export default function TestimonialsPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-24">
+      <section className="relative bg-linear-to-br from-primary/10 via-primary/5 to-background py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">

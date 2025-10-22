@@ -613,3 +613,88 @@ pnpm dev
 ```
 
 > **Reminder:** Begin with **Phase 1**. Only move to **Phase 2** after header/footer, tokens, and layout are in and reviewed.
+
+---
+
+## Validation Layer Upgrade — Zod v4 Notes
+
+**Date:** 2025-10-22
+
+**Summary:** Project upgraded from Zod v3 to v4 to align with latest schema parsing and error surface changes. No breaking changes to existing form schemas were required beyond error property access.
+
+### Key Changes
+1. Error shape: `ZodError.errors` replaced by `ZodError.issues`. Each issue retains `path`, `message`, and `code`.
+2. Existing inline error messages (e.g., `.min(2, 'Message')`, `.email('Message')`, `.regex(/.../, 'Message')`) remain valid and unchanged in v4.
+3. Deprecated option keys like `invalid_type_error` / `required_error` were not used in current schemas—no refactor necessary.
+4. Consent refinement continues to work; v4 preserves custom refinement messages.
+
+### Implementation Adjustments
+- Updated API handler in `app/api/quotes/route.ts` to map `error.issues` instead of `error.errors`:
+  ```ts
+  if (error instanceof ZodError) {
+    return NextResponse.json({
+      success: false,
+      error: 'Invalid request data',
+      details: error.issues.map(issue => ({
+        field: issue.path.join('.'),
+        message: issue.message,
+      })),
+    }, { status: 400 });
+  }
+  ```
+- Verified form flows (contact form + quote wizard) still surface messages via react-hook-form resolvers without changes.
+
+### Testing Performed
+- Positive submit: Valid quote payload returns 201 with record id.
+- Negative submit: Missing required fields yields structured errors (fields + messages) using `issues`.
+- Honeypot path: Filled hidden field returns silent success; unaffected by upgrade.
+- Rate limiting unaffected; validation occurs after rate check.
+
+### Risk & Follow-Up
+- Low ongoing risk. Monitor upcoming minor releases for any resolver changes in `@hookform/resolvers`.
+- Consider adding unit tests for representative schemas (optional future improvement) to guard against regressions.
+
+### Reference Files
+- Schemas: `lib/validations.ts`
+- API handler: `app/api/quotes/route.ts`
+- Types consumed by UI remain stable: `QuoteSubmissionData` unchanged.
+
+---
+
+## Style Regression Audit Checklist (Post Tailwind v4 Migration)
+
+**Purpose:** Ensure component spacing, typography, color contrast, and interactive states remained consistent after utility upgrades.
+
+### Components to Inspect
+1. Layout: `Header.tsx`, `Footer.tsx`
+2. Navigation: dropdown hover states, active focus outlines
+3. Forms: quote wizard steps (padding, label alignment, focus ring)
+4. Buttons: size variants (`sm`, `default`, `lg`) consistent vertical rhythm
+5. Pagination component (`components/ui/pagination.tsx`) alignment & spacing
+6. Testimonials carousel card padding and indicator spacing
+7. Hero & CTA sections (vertical rhythm: 4px scale multiples)
+8. Insurance grids: card gap vs container padding coherence
+
+### Spacing Baseline
+Use design tokens in `@theme`: multiples of `--space-xs|sm|md|base|lg|xl|2xl|3xl`. No ad-hoc pixel values except for icon sizing.
+
+### Validation Steps
+| Check | Method | Pass Criteria |
+|-------|--------|---------------|
+| Vertical rhythm | Inspect dev tools line-height & margin stack | All major blocks separated by approved space tokens |
+| Focus visibility | Tab through nav, buttons, links | Clear outline or ring; meets 3:1 contrast |
+| Dropdown hover | Simulate :hover & :focus | Background contrast >= 4.5:1, no layout shift |
+| Form inputs | Check padding (x/y) | Consistent, label alignment stable |
+| Color tokens | Compare to design system doc | No hardcoded hex replacing tokens |
+| Responsive breakpoints | Resize to sm/md/lg/xl | No horizontal scroll; components adapt without overlap |
+
+### Remediation Approach
+1. Identify offending utility classes.
+2. Replace with token-driven spacing or semantic wrappers.
+3. Add minimal custom CSS only if token gap cannot be expressed with existing scale.
+4. Re-run build & manual pass.
+
+### Reporting
+Add findings & adjustments summary to `Copilot-Processing.md` under new "Style Regression Audit" section.
+
+---

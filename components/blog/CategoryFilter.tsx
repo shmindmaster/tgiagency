@@ -16,14 +16,14 @@ interface Props {
 
 export function CategoryFilter({ activeCategory, onCategoryChange }: Props) {
   return (
-    <div className="flex flex-wrap gap-2 mb-8">
+    <div className="flex flex-wrap gap-3 mb-8">
       {categories.map(c => {
         const active = c.key === activeCategory || (!c.key && !activeCategory);
         return (
           <button
             key={c.label}
             onClick={() => onCategoryChange(c.key)}
-            className={`px-4 py-2 rounded-md border text-sm font-medium transition-colors ${active ? 'bg-primary text-white border-primary' : 'bg-white hover:bg-accent/10 text-label border-border'}`}
+            className={`px-4 py-3 min-h-11 rounded-md border text-sm font-medium transition-colors ${active ? 'bg-primary text-white border-primary' : 'bg-white hover:bg-accent/10 text-label border-border'}`}
             aria-current={active ? 'true' : undefined}
           >
             {c.label}

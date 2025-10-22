@@ -21,9 +21,9 @@ export function BenefitsGrid({
   columns = 3,
 }: BenefitsGridProps) {
   const gridCols = {
-    2: 'md:grid-cols-2',
-    3: 'md:grid-cols-2 lg:grid-cols-3',
-    4: 'md:grid-cols-2 lg:grid-cols-4',
+    2: '@md:grid-cols-2',
+    3: '@md:grid-cols-2 @xl:grid-cols-3',
+    4: '@md:grid-cols-2 @xl:grid-cols-4',
   };
 
   return (
@@ -44,29 +44,31 @@ export function BenefitsGrid({
           </div>
         )}
 
-        <div className={cn('grid grid-cols-1 gap-8', gridCols[columns])}>
-          {benefits.map((benefit, index) => (
-            <div
-              key={index}
-              className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
-                    <benefit.icon className="h-6 w-6 text-secondary" />
+        <div className="@container">
+          <div className={cn('grid grid-cols-1 gap-8', gridCols[columns])}>
+            {benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="@container bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                <div className="flex @lg:flex-row flex-col @lg:items-start items-center @lg:text-left text-center @lg:space-x-4 space-x-0">
+                  <div className="shrink-0 @lg:mb-0 mb-4">
+                    <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                      <benefit.icon className="h-6 w-6 text-secondary" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-primary mb-2">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-foreground leading-relaxed">
+                      {benefit.description}
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-primary mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-foreground leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
