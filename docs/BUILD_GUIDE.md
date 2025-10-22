@@ -698,3 +698,85 @@ Use design tokens in `@theme`: multiples of `--space-xs|sm|md|base|lg|xl|2xl|3xl
 Add findings & adjustments summary to `Copilot-Processing.md` under new "Style Regression Audit" section.
 
 ---
+## Accessibility Audit Preparation (WCAG 2.2 AA Focus)
+
+**Scope:** Global layout (`layout.tsx`), navigation menus, quote wizard, blog pages, interactive components (dialogs, dropdowns, carousel, forms).
+
+### Audit Tasks
+1. Landmarks: Ensure single `<main>` per page; proper `<header>`, `<nav>`, `<footer>` roles.
+2. Skip Link: Add visually hidden "Skip to main" link as first focusable element.
+3. Focus Order: Tab through Header > Nav > Content > Footer without unexpected jumps.
+4. Dropdown Menus: Verify `aria-expanded`, `role="menu"`, keyboard arrow navigation (enhancement backlog) and ESC close behavior.
+5. Form Labels: All inputs associated via `<label for>` or `aria-label`; error text mapped with `aria-describedby`.
+6. Quote Wizard: Focus management on step change; maintain visible focus outlines.
+7. Dialog/Modal: Trap focus, restore to trigger after close; ESC closes modal.
+8. Color Contrast: Validate tokens against 4.5:1 (body text) and 3:1 (large text); record any exceptions.
+9. Carousel: Buttons have `aria-label`s; indicators expose position (e.g., `aria-current` improvement backlog).
+10. Images: All informative images have `alt`; decorative images get empty `alt` or `aria-hidden`.
+11. JSON-LD Script: Ensure it is not focusable (no tabindex) and safely injected.
+12. Keyboard Escape Paths: Test exiting modals, dropdowns, and closing mobile menu.
+
+### Tools
+| Tool | Purpose |
+|------|---------|
+| axe DevTools / Accessibility Insights | Automated rule scanning |
+| Keyboard only navigation | Manual focus order & traps |
+| Screen reader (NVDA/VoiceOver) | Semantic announcement verification |
+| Color contrast analyzer | Token contrast validation |
+
+### Reporting
+Create an audit summary table (Issue, Severity, Component, Fix Date) and add to `Copilot-Processing.md` under a new Accessibility Audit section.
+
+### Backlog Enhancements (Post Initial Pass)
+| Enhancement | Rationale |
+|-------------|-----------|
+| Arrow-key navigation in dropdown menus | Improve menu usability for keyboard users |
+| Roving tabindex or `aria-activedescendant` for carousel indicators | More explicit position feedback |
+| Focus outline customization for dark mode | Ensure contrast in alternate themes |
+
+---
+## Performance Audit Preparation
+
+**Objective:** Validate build output and runtime for Core Web Vitals and bundle efficiency post-upgrades (Next.js 16, Tailwind v4, React 19).
+
+### Metrics Targets
+| Metric | Target | Notes |
+|--------|--------|-------|
+| LCP | < 2.5s | Hero image optimized, avoid layout shift |
+| CLS | < 0.1 | Stable headers, reserved image dimensions |
+| INP | < 200ms | Fast quote form interactions |
+| TTFB (static pages) | < 200ms | Via CDN edge prerender |
+| FID (proxy via INP) | Good | React 19 concurrent stability |
+| Bundle Size (main) | < 180KB gzipped | Avoid heavy optional libs |
+
+### Audit Tasks
+1. Lighthouse runs (Desktop + Mobile) on `/`, `/personal/auto`, `/resources/ultimate-guide-home-insurance-texas`, `/contact`.
+2. Analyze `.next/static/chunks` artifact sizes; flag unusually large chunks.
+3. Confirm image formats (prefer WebP/AVIF for hero & blog images) — backlog conversion if missing.
+4. Check hydration timings in dev tools Performance tab.
+5. Validate no blocking synchronous calls in API route aside from required Supabase insert.
+6. Inspect console for hydration warnings (none expected after migration).
+7. Ensure `QuoteLauncher` does not introduce unnecessary re-renders (memoization backlog if needed).
+8. Verify ISR route `/resources` revalidates (headers show `x-next-cache` on deploy).
+
+### Tools
+| Tool | Purpose |
+|------|---------|
+| Lighthouse | Lab performance and a11y snapshot |
+| Chrome Performance Profiler | Hydration & scripting cost |
+| Source Map Explorer / `next build --profile` | Bundle composition |
+| WebPageTest (optional) | Real-world multi-location metrics |
+
+### Optimization Backlog (If Targets Missed)
+| Item | Potential Gain |
+|------|----------------|
+| Convert large PNG blog images to AVIF | Reduce LCP by 200–400ms |
+| Dynamic import carousel component | Lower initial JS by ~10–15KB |
+| Memoize quote wizard steps | Reduce INP for navigations |
+| Preload critical hero image | Improve LCP consistency |
+| HTTP caching headers audit | Lower TTFB variance |
+
+### Reporting
+Add results & remediation decisions to `Copilot-Processing.md` under Performance Audit section.
+
+---
