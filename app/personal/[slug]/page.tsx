@@ -31,7 +31,7 @@ const personalInsuranceData: Record<string, any> = {
       {
         icon: Clock,
         title: 'Uninsured Motorist',
-        description: 'Protects you if you're hit by a driver without insurance or a hit-and-run driver.',
+        description: "Protects you if you're hit by a driver without insurance or a hit-and-run driver.",
       },
       {
         icon: Award,
@@ -63,7 +63,7 @@ const personalInsuranceData: Record<string, any> = {
       {
         icon: TrendingDown,
         title: 'Liability Protection',
-        description: 'Protects you if someone is injured on your property or if you damage someone else's property.',
+        description: "Protects you if someone is injured on your property or if you damage someone else's property.",
       },
       {
         icon: Clock,
@@ -95,7 +95,7 @@ const personalInsuranceData: Record<string, any> = {
       {
         icon: CheckCircle,
         title: 'Liability Protection',
-        description: 'Covers legal costs if someone is injured in your rental or if you damage someone else's property.',
+        description: "Covers legal costs if someone is injured in your rental or if you damage someone else's property.",
       },
       {
         icon: TrendingDown,
@@ -121,7 +121,7 @@ const personalInsuranceData: Record<string, any> = {
   },
   life: {
     title: 'Life Insurance in Texas',
-    subtitle: 'SECURE YOUR FAMILY'S FUTURE',
+    subtitle: "SECURE YOUR FAMILY'S FUTURE",
     description: 'Provide financial security for your loved ones with term or whole life insurance. Ensure your family can maintain their lifestyle and meet financial obligations.',
     benefits: [
       {
@@ -142,7 +142,7 @@ const personalInsuranceData: Record<string, any> = {
       {
         icon: Clock,
         title: 'Debt Protection',
-        description: 'Covers mortgages, car loans, credit cards, and other debts so they don't burden your family.',
+        description: "Covers mortgages, car loans, credit cards, and other debts so they don't burden your family.",
       },
       {
         icon: Award,
@@ -179,7 +179,7 @@ const personalInsuranceData: Record<string, any> = {
       {
         icon: Clock,
         title: 'Uninsured Boater',
-        description: 'Protects you if you're involved in an accident with an uninsured or underinsured boater.',
+        description: "Protects you if you're involved in an accident with an uninsured or underinsured boater.",
       },
       {
         icon: Award,
@@ -196,7 +196,7 @@ const personalInsuranceData: Record<string, any> = {
   flood: {
     title: 'Flood Insurance in Texas',
     subtitle: 'ESSENTIAL FLOOD PROTECTION',
-    description: 'Protect your home and belongings from flood damage with specialized flood insurance. Standard homeowners policies don't cover floods - make sure you're protected.',
+    description: "Protect your home and belongings from flood damage with specialized flood insurance. Standard homeowners policies don't cover floods - make sure you're protected.",
     benefits: [
       {
         icon: Shield,
@@ -226,7 +226,7 @@ const personalInsuranceData: Record<string, any> = {
       {
         icon: Users,
         title: 'All Flood Zones',
-        description: 'Coverage available regardless of whether you're in a high-risk flood zone.',
+        description: "Coverage available regardless of whether you're in a high-risk flood zone.",
       },
     ],
   },
