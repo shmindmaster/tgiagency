@@ -66,54 +66,63 @@ export default function Home() {
       title: 'Auto Insurance',
       description: 'Comprehensive coverage for your vehicle with liability, collision, and comprehensive options.',
       href: '/personal/auto',
+      image: '/assets/products/car-insurance.jpg',
     },
     {
       icon: HomeIcon,
       title: 'Home Insurance',
       description: 'Protect your home and belongings with customizable coverage options and competitive rates.',
       href: '/personal/home',
+      image: '/assets/products/home-insurance.jpg',
     },
     {
       icon: Key,
       title: 'Renters Insurance',
       description: 'Affordable protection for your personal property and liability coverage for renters.',
       href: '/personal/renters',
+      image: '/assets/products/renter-insurance.jpg',
     },
     {
       icon: Heart,
       title: 'Life Insurance',
       description: 'Secure your family\'s financial future with term and whole life insurance options.',
       href: '/personal/life',
+      image: '/assets/products/life-insurance.jpg',
     },
     {
       icon: Anchor,
       title: 'Boat Insurance',
       description: 'Keep your watercraft protected with specialized marine insurance coverage.',
       href: '/personal/boat',
+      image: '/assets/products/boat-insurance.jpg',
     },
     {
       icon: Droplets,
       title: 'Flood Insurance',
       description: 'Essential protection against flood damage not covered by standard homeowners policies.',
       href: '/personal/flood',
+      image: '/assets/products/flood-insurance.jpg',
     },
     {
       icon: Building2,
       title: 'Business Insurance',
       description: 'Comprehensive commercial coverage to protect your business assets and operations.',
       href: '/business/business',
+      image: '/assets/products/business-insurance.jpg',
     },
     {
       icon: Users,
       title: 'Landlord Insurance',
       description: 'Specialized coverage for rental property owners and real estate investors.',
       href: '/business/landlord',
+      image: '/assets/products/landlord-insurance.jpg',
     },
     {
       icon: FileCheck,
       title: 'Surety Bonds',
       description: 'Professional bonding services for contractors, businesses, and legal requirements.',
       href: '/business/bonds',
+      image: '/assets/products/bond-insurance.jpg',
     },
   ];
 
@@ -124,6 +133,7 @@ export default function Home() {
       rating: 5,
       text: 'Texas General Insurance made switching my auto and home insurance incredibly easy. I saved over $800 a year and got better coverage. Their team is professional, responsive, and truly cares.',
       insuranceType: 'Auto & Home Insurance',
+      image: '/assets/testimonials/testimonial-woman-30s-caucasian.jpg',
     },
     {
       name: 'Michael Chen',
@@ -131,6 +141,7 @@ export default function Home() {
       rating: 5,
       text: 'As a small business owner, finding the right insurance was overwhelming until I found TGI. They took the time to understand my needs and found coverage that fits my budget perfectly.',
       insuranceType: 'Business Insurance',
+      image: '/assets/testimonials/testimonial-businessman-50s.jpg',
     },
     {
       name: 'Jennifer Williams',
@@ -138,6 +149,7 @@ export default function Home() {
       rating: 5,
       text: 'When my home was damaged in a storm, Texas General Insurance guided me through every step of the claims process. Their support made a stressful situation so much easier.',
       insuranceType: 'Home Insurance',
+      image: '/assets/testimonials/testimonial-businesswoman-40s.jpg',
     },
   ];
 

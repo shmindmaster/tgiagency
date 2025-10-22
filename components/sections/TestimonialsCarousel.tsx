@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 interface Testimonial {
   name: string;
@@ -10,6 +11,7 @@ interface Testimonial {
   rating: number;
   text: string;
   insuranceType?: string;
+  image?: string;
 }
 
 interface TestimonialsCarouselProps {
@@ -33,6 +35,13 @@ export function TestimonialsCarousel({
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextTestimonial();
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
   const currentTestimonial = testimonials[currentIndex];
 
   return (
@@ -54,16 +63,27 @@ export function TestimonialsCarousel({
         )}
 
         <div className="max-w-4xl mx-auto">
-          <div className="relative bg-gray-50 p-8 md:p-12 rounded-lg shadow-md">
+          <div className="relative bg-gradient-to-br from-white to-gray-50 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
+            {currentTestimonial.image && (
+              <div className="flex justify-center mb-6">
+                <div className="relative w-20 h-20 rounded-full overflow-hidden ring-4 ring-primary/10">
+                  <Image
+                    src={currentTestimonial.image}
+                    alt={currentTestimonial.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            )}
             <div className="flex items-center justify-center mb-4">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
-                  className={`h-5 w-5 ${
-                    i < currentTestimonial.rating
+                  className={`h-5 w-5 ${i < currentTestimonial.rating
                       ? 'text-yellow-400 fill-yellow-400'
                       : 'text-gray-300'
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -96,11 +116,10 @@ export function TestimonialsCarousel({
                     <button
                       key={index}
                       onClick={() => setCurrentIndex(index)}
-                      className={`h-2 rounded-full transition-all ${
-                        index === currentIndex
+                      className={`h-2 rounded-full transition-all ${index === currentIndex
                           ? 'w-8 bg-secondary'
                           : 'w-2 bg-gray-300 hover:bg-gray-400'
-                      }`}
+                        }`}
                       aria-label={`Go to testimonial ${index + 1}`}
                     />
                   ))}

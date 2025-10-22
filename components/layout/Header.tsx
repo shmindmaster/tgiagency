@@ -34,9 +34,10 @@ export function Header() {
             <Image
               src="/assets/brand/logo-primary.svg"
               alt="Texas General Insurance"
-              width={50}
-              height={50}
-              className="h-12 w-auto"
+              width={180}
+              height={60}
+              className="h-14 w-auto"
+              priority
             />
             <span className="text-xl font-bold text-primary hidden sm:inline">
               Texas General Insurance
