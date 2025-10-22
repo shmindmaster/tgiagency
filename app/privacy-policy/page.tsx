@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Texas General Insurance',
@@ -94,9 +94,9 @@ export default function PrivacyPolicyPage() {
               If you have questions or concerns about this Privacy Policy or our privacy practices, please contact us:
             </p>
             <ul>
-              <li>Phone: (555) 555-5555</li>
+              <li>Phone: (281) 494-4990</li>
               <li>Email: info@tgiagency.com</li>
-              <li>Address: 123 Main Street, Austin, TX 78701</li>
+              <li>Address: 132 Eldridge Rd, Suite C, Sugar Land, TX 77478</li>
             </ul>
 
             <h2>California Privacy Rights</h2>

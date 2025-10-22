@@ -16,7 +16,7 @@ const inter = Inter({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tgiagency.com';
 const siteName = 'Texas General Insurance';
-const siteDescription = 'Get affordable auto, home, business, and life insurance coverage from Texas General Insurance. Serving Texas families and businesses since 1985.';
+const siteDescription = 'Get affordable auto, home, business, and life insurance coverage from Texas General Insurance. Your neighbors in Sugar Land serving Texas families and businesses.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

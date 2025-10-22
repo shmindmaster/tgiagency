@@ -19,7 +19,7 @@ export function Footer() {
             />
             <h3 className="text-xl font-bold mb-4 sr-only">Texas General Insurance</h3>
             <p className="text-gray-300 mb-4">
-              Providing comprehensive insurance solutions to Texas families and businesses since 1985.
+              Your neighbors in Sugar Land, providing honest, personal insurance advice you can't get from a 1-800 number.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-300 hover:text-white transition-colors" aria-label="Facebook">
@@ -115,14 +115,14 @@ export function Footer() {
               <li className="flex items-start space-x-2">
                 <MapPin className="h-5 w-5 text-gray-300 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-300">
-                  123 Main Street<br />
-                  Austin, TX 78701
+                  132 Eldridge Rd, Suite C<br />
+                  Sugar Land, TX 77478
                 </span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone className="h-5 w-5 text-gray-300 flex-shrink-0" />
-                <a href="tel:+15555555555" className="text-gray-300 hover:text-white transition-colors">
-                  (555) 555-5555
+                <a href="tel:+12814944990" className="text-gray-300 hover:text-white transition-colors">
+                  (281) 494-4990
                 </a>
               </li>
               <li className="flex items-center space-x-2">
@@ -135,8 +135,7 @@ export function Footer() {
             <div className="mt-6">
               <p className="text-sm text-gray-300">
                 <strong>Office Hours:</strong><br />
-                Monday - Friday: 8:00 AM - 6:00 PM<br />
-                Saturday: 9:00 AM - 1:00 PM
+                Monday - Friday: 9:00 AM - 5:00 PM
               </p>
             </div>
           </div>

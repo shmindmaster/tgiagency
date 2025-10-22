@@ -108,9 +108,9 @@ export function Header() {
           </nav>
 
           <div className="hidden lg:flex items-center space-x-4">
-            <a href="tel:+15555555555" className="flex items-center space-x-2 text-primary hover:text-secondary transition-colors">
+            <a href="tel:+12814944990" className="flex items-center space-x-2 text-primary hover:text-secondary transition-colors">
               <Phone className="h-4 w-4" />
-              <span className="font-semibold">(555) 555-5555</span>
+              <span className="font-semibold">(281) 494-4990</span>
             </a>
             <QuoteLauncher size="lg" />
           </div>
@@ -181,9 +181,9 @@ export function Header() {
             </div>
 
             <div className="pt-4 space-y-3">
-              <a href="tel:+15555555555" className="flex items-center space-x-2 text-primary font-semibold">
+              <a href="tel:+12814944990" className="flex items-center space-x-2 text-primary font-semibold">
                 <Phone className="h-4 w-4" />
-                <span>(555) 555-5555</span>
+                <span>(281) 494-4990</span>
               </a>
               <QuoteLauncher className="w-full" size="lg" />
             </div>

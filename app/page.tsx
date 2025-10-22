@@ -41,7 +41,7 @@ export default function Home() {
     {
       icon: Users,
       title: 'Local Expertise',
-      description: 'Family-owned and operated since 1985. We understand Texas and serve our community with pride.',
+      description: 'Your neighbors in Sugar Land. We understand Texas and serve our community with pride.',
     },
     {
       icon: TrendingDown,
@@ -120,7 +120,7 @@ export default function Home() {
   const testimonials = [
     {
       name: 'Sarah Martinez',
-      location: 'Austin, TX',
+      location: 'Sugar Land, TX',
       rating: 5,
       text: 'Texas General Insurance made switching my auto and home insurance incredibly easy. I saved over $800 a year and got better coverage. Their team is professional, responsive, and truly cares.',
       insuranceType: 'Auto & Home Insurance',
@@ -146,7 +146,7 @@ export default function Home() {
       <HeroSection
         title="Protect What Matters Most"
         subtitle="TEXAS INSURANCE EXPERTS"
-        description="Get comprehensive insurance coverage for your auto, home, business, and life. Serving Texas families and businesses since 1985 with competitive rates and exceptional service."
+        description="Get comprehensive insurance coverage for your auto, home, business, and life. Serving Sugar Land and the greater Houston area with competitive rates and exceptional service."
         primaryCta={{
           text: 'Get Your Free Quote',
           onClick: openModal,

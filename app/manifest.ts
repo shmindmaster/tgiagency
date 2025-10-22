@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Texas General Insurance',
     short_name: 'TGI Agency',
-    description: 'Get affordable auto, home, business, and life insurance coverage from Texas General Insurance. Serving Texas families and businesses since 1985.',
+    description: 'Get affordable auto, home, business, and life insurance coverage from Texas General Insurance. Your neighbors in Sugar Land serving Texas families and businesses.',
     start_url: '/',
     display: 'standalone',
     background_color: '#FFFFFF',

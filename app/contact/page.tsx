@@ -43,12 +43,11 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-primary mb-2">Phone</h3>
                     <p className="text-foreground mb-1">Main Office</p>
-                    <a href="tel:+15555555555" className="text-secondary hover:underline font-medium">
-                      (555) 555-5555
+                    <a href="tel:+12814944990" className="text-secondary hover:underline font-medium">
+                      (281) 494-4990
                     </a>
                     <p className="text-sm text-muted-foreground mt-2">
-                      Monday - Friday: 8:00 AM - 6:00 PM<br />
-                      Saturday: 9:00 AM - 1:00 PM
+                      Monday - Friday: 9:00 AM - 5:00 PM
                     </p>
                   </div>
                 </div>
@@ -84,8 +83,8 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-primary mb-2">Visit Us</h3>
                     <p className="text-foreground">
-                      123 Main Street<br />
-                      Austin, TX 78701
+                      132 Eldridge Rd, Suite C<br />
+                      Sugar Land, TX 77478
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
                       Walk-ins welcome during business hours
