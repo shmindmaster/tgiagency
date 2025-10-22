@@ -6,6 +6,7 @@ const businessInsuranceData: Record<string, any> = {
     title: 'Business Insurance in Texas',
     subtitle: 'COMPREHENSIVE COMMERCIAL PROTECTION',
     description: 'Protect your business assets, employees, and operations with comprehensive commercial insurance. From general liability to property coverage, we have you covered.',
+    backgroundImage: '/assets/general/businessman-motor-show.jpg',
     benefits: [
       {
         icon: 'Shield',
@@ -43,6 +44,7 @@ const businessInsuranceData: Record<string, any> = {
     title: 'Landlord Insurance in Texas',
     subtitle: 'PROTECT YOUR RENTAL PROPERTY',
     description: 'Specialized coverage for rental property owners including property damage, liability protection, and loss of rental income. Protect your investment property.',
+    backgroundImage: '/assets/general/background-policy-header.jpg',
     benefits: [
       {
         icon: 'Shield',
@@ -80,6 +82,7 @@ const businessInsuranceData: Record<string, any> = {
     title: 'Surety Bonds in Texas',
     subtitle: 'PROFESSIONAL BONDING SERVICES',
     description: 'Get the surety bonds you need for contractor licensing, court requirements, and business operations. Fast approval and competitive rates.',
+    backgroundImage: '/assets/general/background-agent-contract.jpg',
     benefits: [
       {
         icon: 'Shield',

@@ -33,6 +33,7 @@ export function PersonalPageClient({ data }: { data: any }) {
           href: '/contact',
         }}
         variant="compact"
+        backgroundImage={data.backgroundImage}
       />
 
       <section className="py-16 md:py-24 bg-white">

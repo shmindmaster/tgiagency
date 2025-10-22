@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: '/assets/brand/og-image.jpg',
+        url: '/assets/brand/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Texas General Insurance - Your Trusted Insurance Partner',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Texas General Insurance - Comprehensive Insurance Solutions',
     description: siteDescription,
-    images: ['/assets/brand/og-image.jpg'],
+    images: ['/assets/brand/og-image.png'],
   },
   robots: {
     index: true,
@@ -184,9 +184,9 @@ export default function RootLayout({
         {clarityId && <link rel="preconnect" href="https://www.clarity.ms" />}
 
         {/* Favicons */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/assets/brand/icon-favicon.png" />
+        <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-primary text-white px-4 py-2 rounded-md z-50">Skip to content</a>

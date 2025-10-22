@@ -1,9 +1,10 @@
 'use client';
 
+import { QuoteLauncher } from '@/components/quote/QuoteLauncher';
+import { ChevronDown, Menu, Phone, X } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, Phone, ChevronDown } from 'lucide-react';
-import { QuoteLauncher } from '@/components/quote/QuoteLauncher';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,10 +30,17 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-primary">
+          <Link href="/" className="flex items-center space-x-3">
+            <Image
+              src="/assets/brand/logo-primary.svg"
+              alt="Texas General Insurance"
+              width={50}
+              height={50}
+              className="h-12 w-auto"
+            />
+            <span className="text-xl font-bold text-primary hidden sm:inline">
               Texas General Insurance
-            </div>
+            </span>
           </Link>
 
           <nav className="hidden lg:flex items-center space-x-8">

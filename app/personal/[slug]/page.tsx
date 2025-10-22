@@ -6,6 +6,7 @@ const personalInsuranceData: Record<string, any> = {
     title: 'Auto Insurance in Texas',
     subtitle: 'COMPREHENSIVE VEHICLE PROTECTION',
     description: 'Get affordable auto insurance coverage with liability, collision, comprehensive, and uninsured motorist protection. Protect yourself and your vehicle on Texas roads.',
+    backgroundImage: '/assets/general/hand-holding-car-key.jpg',
     benefits: [
       {
         icon: 'Shield',
@@ -43,6 +44,7 @@ const personalInsuranceData: Record<string, any> = {
     title: 'Homeowners Insurance in Texas',
     subtitle: 'PROTECT YOUR HOME & BELONGINGS',
     description: 'Comprehensive homeowners insurance that protects your house, personal property, and provides liability coverage. Get peace of mind knowing your most valuable asset is protected.',
+    backgroundImage: '/assets/general/background-policy-header.jpg',
     benefits: [
       {
         icon: 'Shield',
@@ -80,6 +82,7 @@ const personalInsuranceData: Record<string, any> = {
     title: 'Renters Insurance in Texas',
     subtitle: 'AFFORDABLE PROTECTION FOR RENTERS',
     description: 'Protect your personal belongings and get liability coverage as a renter. Affordable coverage that gives you peace of mind in your rental home or apartment.',
+    backgroundImage: '/assets/general/background-insurance-services.jpg',
     benefits: [
       {
         icon: 'Shield',
@@ -117,6 +120,7 @@ const personalInsuranceData: Record<string, any> = {
     title: 'Life Insurance in Texas',
     subtitle: "SECURE YOUR FAMILY'S FUTURE",
     description: 'Provide financial security for your loved ones with term or whole life insurance. Ensure your family can maintain their lifestyle and meet financial obligations.',
+    backgroundImage: '/assets/general/background-insurance-hands.jpg',
     benefits: [
       {
         icon: 'Shield',
@@ -152,8 +156,9 @@ const personalInsuranceData: Record<string, any> = {
   },
   boat: {
     title: 'Boat Insurance in Texas',
-    subtitle: 'COMPREHENSIVE MARINE COVERAGE',
-    description: 'Protect your watercraft with specialized boat insurance covering physical damage, liability, medical payments, and more. Enjoy the water with confidence.',
+    subtitle: 'MARINE INSURANCE COVERAGE',
+    description: 'Protect your watercraft with comprehensive boat insurance including hull coverage, liability protection, and personal property coverage for your marine assets.',
+    backgroundImage: '/assets/general/background-header-generic.jpg',
     benefits: [
       {
         icon: 'Shield',
@@ -190,7 +195,8 @@ const personalInsuranceData: Record<string, any> = {
   flood: {
     title: 'Flood Insurance in Texas',
     subtitle: 'ESSENTIAL FLOOD PROTECTION',
-    description: "Protect your home and belongings from flood damage with specialized flood insurance. Standard homeowners policies don't cover floods - make sure you're protected.",
+    description: 'Protect your home from flood damage with NFIP flood insurance. Essential coverage not included in standard homeowners policies for Texas properties.',
+    backgroundImage: '/assets/general/background-insurance-services.jpg',
     benefits: [
       {
         icon: 'Shield',

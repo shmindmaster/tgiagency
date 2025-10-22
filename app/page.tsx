@@ -155,7 +155,8 @@ export default function Home() {
           text: 'View Coverage Options',
           href: '#insurance-types',
         }}
-        backgroundImage="https://images.pexels.com/photos/3760514/pexels-photo-3760514.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        backgroundImage="/assets/general/hero-business-people.jpg"
+        priorityImage={true}
       />
 
       <BenefitsGrid

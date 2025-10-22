@@ -1,5 +1,6 @@
+import { Facebook, Linkedin, Mail, MapPin, Phone, Twitter } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,7 +10,14 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Texas General Insurance</h3>
+            <Image
+              src="/assets/brand/logo-footer.png"
+              alt="Texas General Insurance"
+              width={180}
+              height={60}
+              className="mb-4 h-auto w-auto max-w-[180px]"
+            />
+            <h3 className="text-xl font-bold mb-4 sr-only">Texas General Insurance</h3>
             <p className="text-gray-300 mb-4">
               Providing comprehensive insurance solutions to Texas families and businesses since 1985.
             </p>

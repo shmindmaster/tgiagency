@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Contact Texas General Insurance',
     description: 'Reach out for quotes, claims help, or coverage questions. Our experienced Texas agents are ready to assist.',
     type: 'website',
-    images: ['/assets/brand/og-contact.jpg'],
+    images: ['/assets/brand/og-image.png'],
   },
   twitter: {
     card: 'summary_large_image',
@@ -28,6 +28,7 @@ export default function ContactPage() {
         subtitle="CONTACT US"
         description="Have questions about insurance coverage? Need help with a claim? Our experienced team is here to help. Reach out today."
         variant="compact"
+        backgroundImage="/assets/general/insurance-agent-hands.jpg"
       />
 
       <section className="py-16 md:py-24 bg-white">
