@@ -1,0 +1,48 @@
+<svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions -->
+  <defs>
+    <!-- Define colors -->
+    <style>
+      .primary-navy { fill: #0B253A; }
+      .accent-orange { fill: #E66B17; }
+      .light-mode-bg { fill: #F5F6F8; }
+    </style>
+  </defs>
+  
+  <!-- Background (optional, remove for transparent) -->
+  <rect width="600" height="200" fill="white"/>
+  
+  <!-- TGI Icon/Monogram with Shield concept -->
+  <g id="tgi-icon" transform="translate(30, 50)">
+    <!-- Shield-inspired container using negative space -->
+    <path class="primary-navy" d="M 0,0 L 80,0 L 80,80 L 40,100 L 0,80 Z" opacity="0.08"/>
+    
+    <!-- T letterform - bold geometric -->
+    <rect class="accent-orange" x="5" y="15" width="70" height="12"/>
+    <rect class="accent-orange" x="34" y="15" width="12" height="70"/>
+    
+    <!-- G letterform - interlocking with T -->
+    <path class="primary-navy" d="M 50,35 L 75,35 L 75,75 L 25,75 L 25,35 L 40,35 L 40,45 L 50,45 Z M 35,45 L 35,65 L 65,65 L 65,45 L 55,45 L 55,55 L 50,55 L 50,45 Z"/>
+    
+    <!-- I letterform - simplified vertical element integrated -->
+    <rect class="accent-orange" x="12" y="30" width="8" height="50" opacity="0.3"/>
+  </g>
+  
+  <!-- Typography System -->
+  <g id="wordmark" transform="translate(140, 50)">
+    <!-- TEXAS GENERAL - Bold, Navy -->
+    <text x="0" y="40" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" letter-spacing="2" class="primary-navy">
+      TEXAS GENERAL
+    </text>
+    
+    <!-- INSURANCE - Medium weight, Orange, letter-spaced -->
+    <text x="2" y="70" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="500" letter-spacing="6" class="accent-orange">
+      INSURANCE
+    </text>
+  </g>
+  
+  <!-- Subtle shield element behind monogram (optional reinforcement) -->
+  <g id="shield-accent" transform="translate(30, 50)" opacity="0.15">
+    <path class="accent-orange" d="M 40,5 L 75,20 L 75,60 L 40,85 L 5,60 L 5,20 Z" fill="none" stroke="#E66B17" stroke-width="2"/>
+  </g>
+</svg>
