@@ -24,7 +24,7 @@ export function CTASection({
 }: CTASectionProps) {
   const backgroundStyles = {
     default: 'bg-gray-50',
-    gradient: 'bg-linear-to-r from-primary to-accent',
+    gradient: 'bg-gradient-to-r from-primary to-accent',
     solid: 'bg-secondary',
   };
 
