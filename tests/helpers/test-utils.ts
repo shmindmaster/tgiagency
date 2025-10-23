@@ -43,7 +43,7 @@ export class TestHelpers {
   /**
    * Check for broken images on the page
    */
-  async assertNobrokenImages() {
+  async assertNoBrokenImages() {
     const images = await this.page.locator('img').all();
     const brokenImages: string[] = [];
 
