@@ -182,10 +182,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {clarityId && <link rel="preconnect" href="https://www.clarity.ms" />}
 
-        {/* Favicons */}
-        <link rel="icon" href="/assets/brand/icon-favicon.png" />
+        {/* Favicons & PWA */}
+        {/* Provide explicit icon links to suppress default /favicon.ico 404 and ensure proper discovery */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-favicon.png" />
         <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
+        {/* Next.js emits /manifest.webmanifest from app/manifest.ts – correct href here */}
+        <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className={inter.className}>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-primary text-white px-4 py-2 rounded-md z-50">Skip to content</a>

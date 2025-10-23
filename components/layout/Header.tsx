@@ -30,14 +30,17 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4 max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px]">
         <div className="flex items-center justify-between h-16 md:h-20 lg:h-24">
-          <Link href="/" className="flex items-center space-x-3">
+          <Link
+            href="/"
+            aria-label="Texas General Insurance Home"
+            className="flex items-center space-x-3"
+          >
             <Image
               src="/assets/brand/logo-primary.svg"
-              alt="Texas General Insurance"
+              alt="TGI Agency logo"
               width={180}
               height={60}
               className="h-auto max-w-[160px] sm:max-w-[180px] md:max-w-[200px]"
-              priority
             />
             <span className="text-sm sm:text-base font-bold text-primary opacity-0 sm:opacity-100 w-0 sm:w-auto overflow-hidden transition-all">
               Texas General Insurance

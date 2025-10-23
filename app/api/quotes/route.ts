@@ -1,5 +1,5 @@
-import { quoteSubmissionSchema } from '@/lib/validations';
 import { sendQuoteNotification } from '@/lib/email';
+import { quoteSubmissionSchema } from '@/lib/validations';
 import { createClient } from '@supabase/supabase-js';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
@@ -86,11 +86,21 @@ export async function POST(request: NextRequest) {
     // Initialize Supabase client with service role key
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-    
+
     if (!supabaseUrl || !supabaseServiceKey) {
       throw new Error('Supabase URL or Service Role Key is not defined.');
     }
-    
+
+    // Mask env values before logging to avoid leaking secrets
+    const mask = (v?: string) => (v ? `${v.slice(0, 6)}…${v.slice(-4)}` : '(missing)');
+    // Lightweight diagnostic log (dev only)
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('[QuoteAPI Env]', {
+        url: mask(supabaseUrl),
+        serviceRole: mask(supabaseServiceKey),
+      });
+    }
+
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Insert into database
@@ -130,6 +140,9 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           error: 'Failed to save quote request. Please try again.',
+          ...(process.env.NODE_ENV !== 'production' && dbError.message
+            ? { dbError: dbError.message }
+            : {}),
         },
         { status: 500 }
       );
@@ -206,6 +219,9 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error: 'An unexpected error occurred. Please try again.',
+        ...(process.env.NODE_ENV !== 'production' && error instanceof Error
+          ? { details: error.message }
+          : {}),
       },
       { status: 500 }
     );

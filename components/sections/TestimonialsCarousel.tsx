@@ -71,7 +71,9 @@ export function TestimonialsCarousel({
                     src={currentTestimonial.image}
                     alt={currentTestimonial.name}
                     fill
+                    sizes="80px"
                     className="object-cover"
+                    priority={currentIndex === 0}
                   />
                 </div>
               </div>
@@ -81,8 +83,8 @@ export function TestimonialsCarousel({
                 <Star
                   key={i}
                   className={`h-5 w-5 ${i < currentTestimonial.rating
-                      ? 'text-yellow-400 fill-yellow-400'
-                      : 'text-gray-300'
+                    ? 'text-yellow-400 fill-yellow-400'
+                    : 'text-gray-300'
                     }`}
                 />
               ))}
@@ -117,8 +119,8 @@ export function TestimonialsCarousel({
                       key={index}
                       onClick={() => setCurrentIndex(index)}
                       className={`h-2 rounded-full transition-all ${index === currentIndex
-                          ? 'w-8 bg-secondary'
-                          : 'w-2 bg-gray-300 hover:bg-gray-400'
+                        ? 'w-8 bg-secondary'
+                        : 'w-2 bg-gray-300 hover:bg-gray-400'
                         }`}
                       aria-label={`Go to testimonial ${index + 1}`}
                     />
