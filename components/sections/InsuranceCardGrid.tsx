@@ -57,7 +57,7 @@ export function InsuranceCardGrid({
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
                         <div className="absolute bottom-4 left-4">
-                          <div className="w-12 h-12 bg-white/90 backdrop-blur-xs rounded-lg flex items-center justify-center">
+                          <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
                             <card.icon className="h-6 w-6 text-primary" />
                           </div>
                         </div>
