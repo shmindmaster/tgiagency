@@ -218,7 +218,7 @@ test.describe('Homepage', () => {
       await page.waitForLoadState('networkidle');
       
       // Check for broken images
-      await helpers.assertNobrokenImages();
+      await helpers.assertNoBrokenImages();
     });
 
     test('should load homepage within reasonable time', async ({ page }) => {
