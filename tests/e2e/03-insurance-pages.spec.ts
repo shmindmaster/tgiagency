@@ -203,7 +203,7 @@ test.describe('Insurance Pages', () => {
       await page.goto('/personal/auto');
       await page.waitForLoadState('networkidle');
       
-      await helpers.assertNobrokenImages();
+      await helpers.assertNoBrokenImages();
     });
   });
 
