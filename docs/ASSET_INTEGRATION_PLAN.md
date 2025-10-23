@@ -788,15 +788,3 @@ All blog posts with hero images, excerpts, and read more links.
    - Multi-policy discount analysis
 
 ---
-
-## Support & Documentation
-
-- **Asset Inventory**: `ASSET_INVENTORY.json`
-- **Analysis Report**: `ASSET_ANALYSIS_REPORT.json`
-- **Optimization Guide**: `ASSET_OPTIMIZATION_COMPLETE.md`
-
-**All assets are production-ready, optimized for web performance, and designed to build trust with Texas insurance customers.**
-
----
-
-*Last Updated: October 22, 2025*
