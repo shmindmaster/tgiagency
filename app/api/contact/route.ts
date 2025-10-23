@@ -13,8 +13,12 @@ const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
 const MAX_REQUESTS_PER_WINDOW = 10;
 
+function getRateLimitKey(ip: string): string {
+  return `ratelimit:contact:${ip}`;
+}
+
 function checkRateLimit(ip: string): { allowed: boolean; resetTime?: number } {
-  const key = `ratelimit:contact:${ip}`;
+  const key = getRateLimitKey(ip);
   const now = Date.now();
   const record = rateLimitMap.get(key);
 
