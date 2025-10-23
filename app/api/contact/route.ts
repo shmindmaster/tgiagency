@@ -1,5 +1,5 @@
-import { quoteSubmissionSchema } from '@/lib/validations';
-import { sendQuoteNotification } from '@/lib/email';
+import { contactFormSchema } from '@/lib/validations';
+import { sendContactNotification } from '@/lib/email';
 import { createClient } from '@supabase/supabase-js';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
@@ -8,14 +8,13 @@ import { ZodError } from 'zod';
 // Next.js 16: API routes must be dynamic
 export const dynamic = 'force-dynamic';
 
-// Rate limiting store (in-memory, resets on server restart)
-// For production, consider Redis or a database-backed solution
+// Rate limiting store (in-memory)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in milliseconds
-const MAX_REQUESTS_PER_WINDOW = 5;
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
+const MAX_REQUESTS_PER_WINDOW = 10;
 
 function getRateLimitKey(ip: string): string {
-  return `ratelimit:${ip}`;
+  return `ratelimit:contact:${ip}`;
 }
 
 function checkRateLimit(ip: string): { allowed: boolean; resetTime?: number } {
@@ -24,7 +23,6 @@ function checkRateLimit(ip: string): { allowed: boolean; resetTime?: number } {
   const record = rateLimitMap.get(key);
 
   if (!record || now > record.resetTime) {
-    // New window or expired window
     rateLimitMap.set(key, {
       count: 1,
       resetTime: now + RATE_LIMIT_WINDOW,
@@ -57,7 +55,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Too many quote requests. Please try again later.',
+          error: 'Too many contact requests. Please try again later.',
         },
         {
           status: 429,
@@ -68,20 +66,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Parse request body
+    // Parse and validate request body
     const body = await request.json();
-
-    // Check honeypot (anti-spam measure)
-    if (body.honeypot && body.honeypot.trim() !== '') {
-      // Silently reject spam (don't reveal honeypot detection)
-      return NextResponse.json(
-        { success: true, message: 'Quote request submitted successfully' },
-        { status: 200 }
-      );
-    }
-
-    // Validate request data with Zod
-    const validatedData = quoteSubmissionSchema.parse(body);
+    const validatedData = contactFormSchema.parse(body);
 
     // Initialize Supabase client with service role key
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -90,38 +77,13 @@ export async function POST(request: NextRequest) {
     if (!supabaseUrl || !supabaseServiceKey) {
       throw new Error('Supabase URL or Service Role Key is not defined.');
     }
-    
+
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Insert into database
     const { data, error: dbError } = await supabase
-      .from('quotes')
-      .insert([
-        {
-          insurance_type: validatedData.insuranceType,
-          first_name: validatedData.firstName,
-          last_name: validatedData.lastName,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          address: validatedData.address,
-          city: validatedData.city,
-          state: validatedData.state,
-          zip_code: validatedData.zipCode,
-          property_type: validatedData.propertyType,
-          year_built: validatedData.yearBuilt,
-          vehicle_make: validatedData.vehicleMake,
-          vehicle_model: validatedData.vehicleModel,
-          vehicle_year: validatedData.vehicleYear,
-          business_type: validatedData.businessType,
-          employee_count: validatedData.employeeCount,
-          annual_revenue: validatedData.annualRevenue,
-          coverage_amount: validatedData.coverageAmount,
-          deductible: validatedData.deductible,
-          start_date: validatedData.startDate,
-          additional_notes: validatedData.additionalNotes,
-          consent: validatedData.consent,
-        },
-      ])
+      .from('contacts')
+      .insert([validatedData])
       .select();
 
     if (dbError) {
@@ -129,7 +91,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Failed to save quote request. Please try again.',
+          error: 'Failed to save contact message. Please try again.',
         },
         { status: 500 }
       );
@@ -137,48 +99,22 @@ export async function POST(request: NextRequest) {
 
     // Send email notification
     try {
-      await sendQuoteNotification({
-        insuranceType: validatedData.insuranceType,
-        firstName: validatedData.firstName,
-        lastName: validatedData.lastName,
+      await sendContactNotification({
+        name: validatedData.name,
         email: validatedData.email,
         phone: validatedData.phone,
-        address: validatedData.address,
-        city: validatedData.city,
-        state: validatedData.state,
-        zipCode: validatedData.zipCode,
-        coverageAmount: validatedData.coverageAmount,
-        startDate: validatedData.startDate,
-        additionalNotes: validatedData.additionalNotes,
+        message: validatedData.message,
       });
     } catch (emailError) {
       // Log but don't fail the request if email fails
       console.error('Email notification error:', emailError);
     }
 
-    // Optional: Send webhook notification
-    if (process.env.QUOTE_WEBHOOK_URL) {
-      try {
-        await fetch(process.env.QUOTE_WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            event: 'quote_submitted',
-            timestamp: new Date().toISOString(),
-            data: validatedData,
-          }),
-        });
-      } catch (webhookError) {
-        // Log but don't fail the request if webhook fails
-        console.error('Webhook error:', webhookError);
-      }
-    }
-
     // Success response
     return NextResponse.json(
       {
         success: true,
-        message: 'Quote request submitted successfully',
+        message: 'Contact message sent successfully',
         data: { id: data?.[0]?.id },
       },
       { status: 201 }
@@ -190,7 +126,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Invalid request data',
+          error: 'Validation failed',
           details: error.issues.map(issue => ({
             field: issue.path.join('.'),
             message: issue.message,
@@ -201,28 +137,26 @@ export async function POST(request: NextRequest) {
     }
 
     // Handle other errors
-    console.error('Quote submission error:', error);
+    console.error('Contact API error:', error);
     return NextResponse.json(
       {
         success: false,
-        error: 'An unexpected error occurred. Please try again.',
+        error: 'An unexpected error occurred',
       },
       { status: 500 }
     );
   }
 }
 
-// Handle OPTIONS for CORS preflight
+// CORS preflight
 export async function OPTIONS(request: NextRequest) {
   const allowedOrigin = process.env.ALLOWED_CORS_ORIGIN || request.headers.get('origin') || '*';
-
   return new NextResponse(null, {
-    status: 204,
+    status: 200,
     headers: {
       'Access-Control-Allow-Origin': allowedOrigin,
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '86400',
     },
   });
 }

@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/lib/supabase';
 import type { ContactFormData} from '@/lib/validations';
 import { contactFormSchema } from '@/lib/validations';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,8 +31,17 @@ export function ContactForm() {
     setError(null);
 
     try {
-      const { error: submitError } = await supabase.from('contacts').insert([data]);
-      if (submitError) {throw submitError;}
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to submit contact form');
+      }
 
       trackFormSubmit('contact');
       setIsSuccess(true);
