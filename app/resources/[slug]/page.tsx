@@ -12,7 +12,8 @@ export function generateStaticParams() {
   return generateStaticPostParams();
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
   if (!post) { return { title: 'Post Not Found | TGI Agency' }; }
   return {
@@ -33,7 +34,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
   if (!post) { return <div className="container mx-auto px-4 py-24"><h1 className="text-3xl font-bold">Post Not Found</h1></div>; }
 

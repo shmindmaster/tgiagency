@@ -127,7 +127,8 @@ export function generateStaticParams() {
   }));
 }
 
-export default function BusinessInsurancePage({ params }: { params: { slug: string } }) {
+export default async function BusinessInsurancePage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const data = businessInsuranceData[params.slug];
 
   if (!data) {

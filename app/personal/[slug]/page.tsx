@@ -241,7 +241,8 @@ export function generateStaticParams() {
   }));
 }
 
-export default function PersonalInsurancePage({ params }: { params: { slug: string } }) {
+export default async function PersonalInsurancePage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const data = personalInsuranceData[params.slug];
 
   if (!data) {
