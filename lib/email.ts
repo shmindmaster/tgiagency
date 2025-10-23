@@ -108,7 +108,7 @@ ${data.message}
 
 ---
 Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
-View in Supabase: https://supabase.com/dashboard/project/oohttpknzjchpdfogled/editor
+${process.env.SUPABASE_DASHBOARD_URL ? `View in Supabase: ${process.env.SUPABASE_DASHBOARD_URL}` : ''}
   `.trim();
 
   const msg = {
