@@ -599,6 +599,23 @@ Other Pages
 
 ---
 
+## 11. AI Regeneration Workflow Reference
+
+For reproducible asset (re)generation and optimization using OpenAI `gpt-image-1`, Google Imagen 4, and Veo 3.1, see `docs/AI_ASSET_GENERATION.md`.
+
+### Filename Alignment Notes
+- Social OG image now standardized as `og-image.jpg` (was formerly referenced as `og-image.png`). Update any remaining `.png` references if encountered.
+- Favicon path uses `favicon-32x32.png` (layout head updated) instead of `icon-favicon.png`.
+- PWA/manifest icons use `android-chrome-192x192.png` and `android-chrome-512x512.png`.
+- Primary logo file recommended: `logo-primary.png`; footer variant: `logo-footer.png`.
+
+### Accessibility & Review Reminders
+- Verify alt text remains descriptive after regeneration.
+- Ensure generated portraits are diverse and respectful; manually review for artifacts or bias.
+- Maintain contrast for any text overlays if composites are produced.
+
+---
+
 ## 8. Blog/Resources Section Integration
 
 ### A. Blog Index Page (`/resources`)

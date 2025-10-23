@@ -58,10 +58,10 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: '/assets/brand/og-image.png',
+        url: '/assets/brand/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Texas General Insurance - Your Trusted Insurance Partner',
+        alt: 'Texas General Insurance – Friendly agent and brand banner',
       },
     ],
   },
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Texas General Insurance - Comprehensive Insurance Solutions',
     description: siteDescription,
-    images: ['/assets/brand/og-image.png'],
+    images: ['/assets/brand/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -184,7 +184,7 @@ export default function RootLayout({
 
         {/* Favicons & PWA */}
         {/* Provide explicit icon links to suppress default /favicon.ico 404 and ensure proper discovery */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/icon-favicon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32x32.png" />
         <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png" />
         {/* Next.js emits /manifest.webmanifest from app/manifest.ts – correct href here */}
         <link rel="manifest" href="/manifest.webmanifest" />
