@@ -1,4 +1,5 @@
 import { quoteSubmissionSchema } from '@/lib/validations';
+import { sendQuoteNotification } from '@/lib/email';
 import { createClient } from '@supabase/supabase-js';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
@@ -127,6 +128,27 @@ export async function POST(request: NextRequest) {
         },
         { status: 500 }
       );
+    }
+
+    // Send email notification
+    try {
+      await sendQuoteNotification({
+        insuranceType: validatedData.insuranceType,
+        firstName: validatedData.firstName,
+        lastName: validatedData.lastName,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        address: validatedData.address,
+        city: validatedData.city,
+        state: validatedData.state,
+        zipCode: validatedData.zipCode,
+        coverageAmount: validatedData.coverageAmount,
+        startDate: validatedData.startDate,
+        additionalNotes: validatedData.additionalNotes,
+      });
+    } catch (emailError) {
+      // Log but don't fail the request if email fails
+      console.error('Email notification error:', emailError);
     }
 
     // Optional: Send webhook notification

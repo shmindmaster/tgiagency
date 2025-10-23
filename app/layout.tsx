@@ -166,7 +166,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const ga4Id = process.env.NEXT_PUBLIC_GA4_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
 
   return (
@@ -181,7 +180,6 @@ export default function RootLayout({
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {ga4Id && <link rel="preconnect" href="https://www.googletagmanager.com" />}
         {clarityId && <link rel="preconnect" href="https://www.clarity.ms" />}
 
         {/* Favicons */}
@@ -197,26 +195,6 @@ export default function RootLayout({
         <QuoteModal />
         <BreadcrumbsSchema />
         <WebVitals />
-
-        {/* Google Analytics 4 */}
-        {ga4Id && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${ga4Id}', {
-                  page_path: window.location.pathname,
-                });
-              `}
-            </Script>
-          </>
-        )}
 
         {/* Microsoft Clarity */}
         {clarityId && (
