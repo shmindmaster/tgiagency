@@ -6,7 +6,7 @@ export function BreadcrumbsSchema() {
   const pathname = usePathname();
   const id = useId();
   useEffect(() => {
-    if (!pathname) return;
+    if (!pathname) {return;}
     const segments = pathname.split('/').filter(Boolean);
     const itemListElement = [
       {

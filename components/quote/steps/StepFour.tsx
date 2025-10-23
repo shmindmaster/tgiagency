@@ -1,24 +1,20 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuoteStore } from '@/stores/quote-store';
-import { quoteStepFourSchema, QuoteStepFourData } from '@/lib/validations';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import type { QuoteStepFourData } from '@/lib/validations';
+import { quoteStepFourSchema } from '@/lib/validations';
+import { useQuoteStore } from '@/stores/quote-store';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 export function StepFour() {
   const { formData, updateFormData, nextStep, prevStep } = useQuoteStore();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<QuoteStepFourData>({
+  const { register, handleSubmit, setValue } = useForm<QuoteStepFourData>({
     resolver: zodResolver(quoteStepFourSchema),
     defaultValues: {
       coverageAmount: formData.coverageAmount || '',

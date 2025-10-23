@@ -1,15 +1,15 @@
 'use client';
+/* eslint-disable no-unused-vars */
 
-import * as React from 'react';
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
 type CarouselPlugin = UseCarouselParameters[1];
@@ -18,12 +18,12 @@ type CarouselProps = {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
   orientation?: 'horizontal' | 'vertical';
-  setApi?: (api: CarouselApi) => void;
+  setApi?: (api: UseEmblaCarouselType[1]) => void;
 };
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
-  api: ReturnType<typeof useEmblaCarousel>[1];
+  emblaApi: ReturnType<typeof useEmblaCarousel>[1];
   scrollPrev: () => void;
   scrollNext: () => void;
   canScrollPrev: boolean;
@@ -58,7 +58,7 @@ const Carousel = React.forwardRef<
     },
     ref
   ) => {
-    const [carouselRef, api] = useEmblaCarousel(
+    const [carouselRef, emblaApi] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === 'horizontal' ? 'x' : 'y',
@@ -68,22 +68,22 @@ const Carousel = React.forwardRef<
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 
-    const onSelect = React.useCallback((api: CarouselApi) => {
-      if (!api) {
+    const onSelect = React.useCallback((emblaApi: UseEmblaCarouselType[1]) => {
+      if (!emblaApi) {
         return;
       }
 
-      setCanScrollPrev(api.canScrollPrev());
-      setCanScrollNext(api.canScrollNext());
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
     }, []);
 
     const scrollPrev = React.useCallback(() => {
-      api?.scrollPrev();
-    }, [api]);
+      emblaApi?.scrollPrev();
+    }, [emblaApi]);
 
     const scrollNext = React.useCallback(() => {
-      api?.scrollNext();
-    }, [api]);
+      emblaApi?.scrollNext();
+    }, [emblaApi]);
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -99,32 +99,32 @@ const Carousel = React.forwardRef<
     );
 
     React.useEffect(() => {
-      if (!api || !setApi) {
+      if (!emblaApi || !setApi) {
         return;
       }
 
-      setApi(api);
-    }, [api, setApi]);
+      setApi(emblaApi);
+    }, [emblaApi, setApi]);
 
     React.useEffect(() => {
-      if (!api) {
+      if (!emblaApi) {
         return;
       }
 
-      onSelect(api);
-      api.on('reInit', onSelect);
-      api.on('select', onSelect);
+      onSelect(emblaApi);
+      emblaApi.on('reInit', onSelect);
+      emblaApi.on('select', onSelect);
 
       return () => {
-        api?.off('select', onSelect);
+        emblaApi?.off('select', onSelect);
       };
-    }, [api, onSelect]);
+    }, [emblaApi, onSelect]);
 
     return (
       <CarouselContext.Provider
         value={{
           carouselRef,
-          api: api,
+          emblaApi: emblaApi,
           opts,
           orientation:
             orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
@@ -253,10 +253,8 @@ const CarouselNext = React.forwardRef<
 CarouselNext.displayName = 'CarouselNext';
 
 export {
-  type CarouselApi,
   Carousel,
   CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  CarouselItem, CarouselNext, CarouselPrevious
 };
+

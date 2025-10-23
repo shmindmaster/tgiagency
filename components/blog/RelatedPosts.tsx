@@ -4,7 +4,7 @@ import { BlogCard } from './BlogCard';
 
 export function RelatedPosts({ slug }: { slug: string }) {
   const related = getRelatedPosts(slug, 3);
-  if (!related.length) return null;
+  if (!related.length) {return null;}
   return (
     <section className="max-w-6xl mx-auto px-4 mt-24">
       <h2 className="text-2xl font-bold text-primary mb-6">Related Articles</h2>

@@ -1,4 +1,4 @@
-import { PostMeta } from '@/lib/content/types';
+import type { PostMeta } from '@/lib/content/types';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ const categoryStyles: Record<string, string> = {
 
 export function BlogCard({ post, priority }: BlogCardProps) {
   return (
-    <article className="group rounded-md border border-border overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col">
+    <article className="group rounded-md border border-border overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col @container">
       <Link href={`/resources/${post.slug}`} className="block relative aspect-video overflow-hidden">
         {post.image && (
           <Image
@@ -30,13 +30,13 @@ export function BlogCard({ post, priority }: BlogCardProps) {
         )}
       </Link>
       <div className="p-5 flex flex-col flex-1">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between @sm:flex-row flex-col @sm:items-center items-start gap-2 mb-3">
           <span className={cn('text-xs font-medium px-3 py-1 rounded-full tracking-wide', categoryStyles[post.category] || 'bg-gray-200 text-gray-700')}>
             {formatCategory(post.category)}
           </span>
           <time className="text-xs text-muted-foreground" dateTime={post.publishedDate}>{new Date(post.publishedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
         </div>
-        <h3 className="text-base md:text-lg font-semibold text-primary group-hover:text-secondary line-clamp-2 mb-2">
+        <h3 className="text-base @md:text-lg font-semibold text-primary group-hover:text-secondary line-clamp-2 mb-2">
           <Link href={`/resources/${post.slug}`}>{post.title}</Link>
         </h3>
         <p className="text-sm text-foreground/80 line-clamp-3 mb-4">{post.excerpt}</p>

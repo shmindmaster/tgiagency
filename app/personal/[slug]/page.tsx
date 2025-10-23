@@ -1,6 +1,9 @@
 import { PersonalPageClient } from '@/components/sections/PersonalPageClient';
 import { notFound } from 'next/navigation';
 
+// Next.js 16: Pre-render all personal insurance pages at build time
+export const dynamic = 'force-static';
+
 const personalInsuranceData: Record<string, any> = {
   auto: {
     title: 'Auto Insurance in Texas',

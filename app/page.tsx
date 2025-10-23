@@ -1,5 +1,8 @@
 'use client';
 
+// Next.js 16: Client components with hooks require dynamic rendering
+export const dynamic = 'force-dynamic';
+
 import { BenefitsGrid } from '@/components/sections/BenefitsGrid';
 import { CTASection } from '@/components/sections/CTASection';
 import { HeroSection } from '@/components/sections/HeroSection';

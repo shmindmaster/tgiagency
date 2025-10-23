@@ -1,5 +1,8 @@
 import { HeroSection } from '@/components/sections/HeroSection';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+
+// Next.js 16: Static privacy policy page
+export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Texas General Insurance',

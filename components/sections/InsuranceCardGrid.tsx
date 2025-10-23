@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -40,42 +41,45 @@ export function InsuranceCardGrid({
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cards.map((card, index) => (
-            <Link key={index} href={card.href}>
-              <Card className="h-full hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden">
-                <CardContent className="p-0">
-                  {card.image && (
-                    <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5">
-                      <Image
-                        src={card.image}
-                        alt={card.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                      <div className="absolute bottom-4 left-4">
-                        <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                          <card.icon className="h-6 w-6 text-primary" />
+        <div className="@container">
+          <div className="grid grid-cols-1 @md:grid-cols-2 @xl:grid-cols-3 gap-6">
+            {cards.map((card, index) => (
+              <Link key={index} href={card.href}>
+                <Card className="h-full hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden">
+                  <CardContent className="p-0">
+                    {card.image && (
+                      <div className="relative h-48 w-full overflow-hidden bg-linear-to-br from-primary/5 to-secondary/5">
+                        <Image
+                          src={card.image}
+                          alt={card.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
+                        <div className="absolute bottom-4 left-4">
+                          <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                            <card.icon className="h-6 w-6 text-primary" />
+                          </div>
                         </div>
                       </div>
+                    )}
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-secondary transition-colors">
+                        {card.title}
+                      </h3>
+                      <p className="text-foreground leading-relaxed mb-4">
+                        {card.description}
+                      </p>
+                      <div className="flex items-center text-secondary font-medium group-hover:translate-x-1 transition-transform">
+                        Learn more
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </div>
                     </div>
-                  )}
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-secondary transition-colors">
-                      {card.title}
-                    </h3>
-                    <p className="text-foreground leading-relaxed mb-4">
-                      {card.description}
-                    </p>
-                    <div className="flex items-center text-secondary font-medium group-hover:translate-x-1 transition-transform">
-                      Learn more
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>

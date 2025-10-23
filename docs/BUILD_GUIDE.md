@@ -613,3 +613,170 @@ pnpm dev
 ```
 
 > **Reminder:** Begin with **Phase 1**. Only move to **Phase 2** after header/footer, tokens, and layout are in and reviewed.
+
+---
+
+## Validation Layer Upgrade — Zod v4 Notes
+
+**Date:** 2025-10-22
+
+**Summary:** Project upgraded from Zod v3 to v4 to align with latest schema parsing and error surface changes. No breaking changes to existing form schemas were required beyond error property access.
+
+### Key Changes
+1. Error shape: `ZodError.errors` replaced by `ZodError.issues`. Each issue retains `path`, `message`, and `code`.
+2. Existing inline error messages (e.g., `.min(2, 'Message')`, `.email('Message')`, `.regex(/.../, 'Message')`) remain valid and unchanged in v4.
+3. Deprecated option keys like `invalid_type_error` / `required_error` were not used in current schemas—no refactor necessary.
+4. Consent refinement continues to work; v4 preserves custom refinement messages.
+
+### Implementation Adjustments
+- Updated API handler in `app/api/quotes/route.ts` to map `error.issues` instead of `error.errors`:
+  ```ts
+  if (error instanceof ZodError) {
+    return NextResponse.json({
+      success: false,
+      error: 'Invalid request data',
+      details: error.issues.map(issue => ({
+        field: issue.path.join('.'),
+        message: issue.message,
+      })),
+    }, { status: 400 });
+  }
+  ```
+- Verified form flows (contact form + quote wizard) still surface messages via react-hook-form resolvers without changes.
+
+### Testing Performed
+- Positive submit: Valid quote payload returns 201 with record id.
+- Negative submit: Missing required fields yields structured errors (fields + messages) using `issues`.
+- Honeypot path: Filled hidden field returns silent success; unaffected by upgrade.
+- Rate limiting unaffected; validation occurs after rate check.
+
+### Risk & Follow-Up
+- Low ongoing risk. Monitor upcoming minor releases for any resolver changes in `@hookform/resolvers`.
+- Consider adding unit tests for representative schemas (optional future improvement) to guard against regressions.
+
+### Reference Files
+- Schemas: `lib/validations.ts`
+- API handler: `app/api/quotes/route.ts`
+- Types consumed by UI remain stable: `QuoteSubmissionData` unchanged.
+
+---
+
+## Style Regression Audit Checklist (Post Tailwind v4 Migration)
+
+**Purpose:** Ensure component spacing, typography, color contrast, and interactive states remained consistent after utility upgrades.
+
+### Components to Inspect
+1. Layout: `Header.tsx`, `Footer.tsx`
+2. Navigation: dropdown hover states, active focus outlines
+3. Forms: quote wizard steps (padding, label alignment, focus ring)
+4. Buttons: size variants (`sm`, `default`, `lg`) consistent vertical rhythm
+5. Pagination component (`components/ui/pagination.tsx`) alignment & spacing
+6. Testimonials carousel card padding and indicator spacing
+7. Hero & CTA sections (vertical rhythm: 4px scale multiples)
+8. Insurance grids: card gap vs container padding coherence
+
+### Spacing Baseline
+Use design tokens in `@theme`: multiples of `--space-xs|sm|md|base|lg|xl|2xl|3xl`. No ad-hoc pixel values except for icon sizing.
+
+### Validation Steps
+| Check | Method | Pass Criteria |
+|-------|--------|---------------|
+| Vertical rhythm | Inspect dev tools line-height & margin stack | All major blocks separated by approved space tokens |
+| Focus visibility | Tab through nav, buttons, links | Clear outline or ring; meets 3:1 contrast |
+| Dropdown hover | Simulate :hover & :focus | Background contrast >= 4.5:1, no layout shift |
+| Form inputs | Check padding (x/y) | Consistent, label alignment stable |
+| Color tokens | Compare to design system doc | No hardcoded hex replacing tokens |
+| Responsive breakpoints | Resize to sm/md/lg/xl | No horizontal scroll; components adapt without overlap |
+
+### Remediation Approach
+1. Identify offending utility classes.
+2. Replace with token-driven spacing or semantic wrappers.
+3. Add minimal custom CSS only if token gap cannot be expressed with existing scale.
+4. Re-run build & manual pass.
+
+### Reporting
+Add findings & adjustments summary to `Copilot-Processing.md` under new "Style Regression Audit" section.
+
+---
+## Accessibility Audit Preparation (WCAG 2.2 AA Focus)
+
+**Scope:** Global layout (`layout.tsx`), navigation menus, quote wizard, blog pages, interactive components (dialogs, dropdowns, carousel, forms).
+
+### Audit Tasks
+1. Landmarks: Ensure single `<main>` per page; proper `<header>`, `<nav>`, `<footer>` roles.
+2. Skip Link: Add visually hidden "Skip to main" link as first focusable element.
+3. Focus Order: Tab through Header > Nav > Content > Footer without unexpected jumps.
+4. Dropdown Menus: Verify `aria-expanded`, `role="menu"`, keyboard arrow navigation (enhancement backlog) and ESC close behavior.
+5. Form Labels: All inputs associated via `<label for>` or `aria-label`; error text mapped with `aria-describedby`.
+6. Quote Wizard: Focus management on step change; maintain visible focus outlines.
+7. Dialog/Modal: Trap focus, restore to trigger after close; ESC closes modal.
+8. Color Contrast: Validate tokens against 4.5:1 (body text) and 3:1 (large text); record any exceptions.
+9. Carousel: Buttons have `aria-label`s; indicators expose position (e.g., `aria-current` improvement backlog).
+10. Images: All informative images have `alt`; decorative images get empty `alt` or `aria-hidden`.
+11. JSON-LD Script: Ensure it is not focusable (no tabindex) and safely injected.
+12. Keyboard Escape Paths: Test exiting modals, dropdowns, and closing mobile menu.
+
+### Tools
+| Tool | Purpose |
+|------|---------|
+| axe DevTools / Accessibility Insights | Automated rule scanning |
+| Keyboard only navigation | Manual focus order & traps |
+| Screen reader (NVDA/VoiceOver) | Semantic announcement verification |
+| Color contrast analyzer | Token contrast validation |
+
+### Reporting
+Create an audit summary table (Issue, Severity, Component, Fix Date) and add to `Copilot-Processing.md` under a new Accessibility Audit section.
+
+### Backlog Enhancements (Post Initial Pass)
+| Enhancement | Rationale |
+|-------------|-----------|
+| Arrow-key navigation in dropdown menus | Improve menu usability for keyboard users |
+| Roving tabindex or `aria-activedescendant` for carousel indicators | More explicit position feedback |
+| Focus outline customization for dark mode | Ensure contrast in alternate themes |
+
+---
+## Performance Audit Preparation
+
+**Objective:** Validate build output and runtime for Core Web Vitals and bundle efficiency post-upgrades (Next.js 16, Tailwind v4, React 19).
+
+### Metrics Targets
+| Metric | Target | Notes |
+|--------|--------|-------|
+| LCP | < 2.5s | Hero image optimized, avoid layout shift |
+| CLS | < 0.1 | Stable headers, reserved image dimensions |
+| INP | < 200ms | Fast quote form interactions |
+| TTFB (static pages) | < 200ms | Via CDN edge prerender |
+| FID (proxy via INP) | Good | React 19 concurrent stability |
+| Bundle Size (main) | < 180KB gzipped | Avoid heavy optional libs |
+
+### Audit Tasks
+1. Lighthouse runs (Desktop + Mobile) on `/`, `/personal/auto`, `/resources/ultimate-guide-home-insurance-texas`, `/contact`.
+2. Analyze `.next/static/chunks` artifact sizes; flag unusually large chunks.
+3. Confirm image formats (prefer WebP/AVIF for hero & blog images) — backlog conversion if missing.
+4. Check hydration timings in dev tools Performance tab.
+5. Validate no blocking synchronous calls in API route aside from required Supabase insert.
+6. Inspect console for hydration warnings (none expected after migration).
+7. Ensure `QuoteLauncher` does not introduce unnecessary re-renders (memoization backlog if needed).
+8. Verify ISR route `/resources` revalidates (headers show `x-next-cache` on deploy).
+
+### Tools
+| Tool | Purpose |
+|------|---------|
+| Lighthouse | Lab performance and a11y snapshot |
+| Chrome Performance Profiler | Hydration & scripting cost |
+| Source Map Explorer / `next build --profile` | Bundle composition |
+| WebPageTest (optional) | Real-world multi-location metrics |
+
+### Optimization Backlog (If Targets Missed)
+| Item | Potential Gain |
+|------|----------------|
+| Convert large PNG blog images to AVIF | Reduce LCP by 200–400ms |
+| Dynamic import carousel component | Lower initial JS by ~10–15KB |
+| Memoize quote wizard steps | Reduce INP for navigations |
+| Preload critical hero image | Improve LCP consistency |
+| HTTP caching headers audit | Lower TTFB variance |
+
+### Reporting
+Add results & remediation decisions to `Copilot-Processing.md` under Performance Audit section.
+
+---

@@ -6,6 +6,7 @@ import { BreadcrumbsSchema } from '@/components/seo/BreadcrumbsSchema';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import React from 'react';
 import './globals.css';
 
 const inter = Inter({
@@ -191,7 +192,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-primary text-white px-4 py-2 rounded-md z-50">Skip to content</a>
         <Header />
-        <main id="main" className="min-h-screen focus:outline-none">{children}</main>
+        <main id="main" className="min-h-screen focus:outline-hidden">{children}</main>
         <Footer />
         <QuoteModal />
         <BreadcrumbsSchema />

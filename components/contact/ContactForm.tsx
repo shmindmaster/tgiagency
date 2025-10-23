@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/lib/supabase';
-import { ContactFormData, contactFormSchema } from '@/lib/validations';
+import type { ContactFormData} from '@/lib/validations';
+import { contactFormSchema } from '@/lib/validations';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CheckCircle, Loader2 } from 'lucide-react';
 import { useState } from 'react';
@@ -32,7 +33,7 @@ export function ContactForm() {
 
     try {
       const { error: submitError } = await supabase.from('contacts').insert([data]);
-      if (submitError) throw submitError;
+      if (submitError) {throw submitError;}
 
       trackFormSubmit('contact');
       setIsSuccess(true);
@@ -58,7 +59,7 @@ export function ContactForm() {
 
         {isSuccess && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start space-x-3">
-            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 shrink-0" />
             <div>
               <p className="text-green-800 font-medium">Message sent successfully!</p>
               <p className="text-green-700 text-sm">We will get back to you within 24 hours.</p>

@@ -2,8 +2,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Briefcase, Heart, Megaphone, TrendingUp, UserCheck, Users } from 'lucide-react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+// Next.js 16: Static careers page
+export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
   title: 'Careers - Texas General Insurance',
@@ -57,7 +60,7 @@ export default function CareersPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-24">
+      <section className="relative bg-linear-to-br from-primary/10 via-primary/5 to-background py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -166,7 +169,7 @@ export default function CareersPage() {
       </section>
 
       {/* Application CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-primary/5 to-background">
+      <section className="py-16 md:py-24 bg-linear-to-br from-primary/10 via-primary/5 to-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">

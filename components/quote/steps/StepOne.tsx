@@ -3,7 +3,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuoteStore } from '@/stores/quote-store';
-import { quoteStepOneSchema, QuoteStepOneData } from '@/lib/validations';
+import type { QuoteStepOneData } from '@/lib/validations';
+import { quoteStepOneSchema } from '@/lib/validations';
 import { Button } from '@/components/ui/button';
 import { Car, Home, Building2, Heart, Anchor, Droplets, Users, Key, FileCheck } from 'lucide-react';
 
@@ -63,7 +64,7 @@ export function StepOne() {
                 key={type.id}
                 type="button"
                 onClick={() => handleTypeSelect(type.id)}
-                className={`p-4 border-2 rounded-lg transition-all hover:border-secondary ${
+                className={`p-4 min-h-[6rem] border-2 rounded-lg transition-all hover:border-secondary ${
                   selectedType === type.id
                     ? 'border-secondary bg-accent/10'
                     : 'border-gray-200 hover:bg-gray-50'
