@@ -63,7 +63,7 @@ export function TestimonialsCarousel({
         )}
 
         <div className="max-w-4xl mx-auto">
-          <div className="relative bg-linear-to-br from-white to-gray-50 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
+          <div className="relative bg-gradient-to-br from-white to-gray-50 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100">
             {currentTestimonial.image && (
               <div className="flex justify-center mb-6">
                 <div className="relative w-20 h-20 rounded-full overflow-hidden ring-4 ring-primary/10">
