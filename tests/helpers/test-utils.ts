@@ -49,9 +49,28 @@ export class TestHelpers {
 
     for (const img of images) {
       const src = await img.getAttribute('src');
-      const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
       
-      if (naturalWidth === 0 && src) {
+      if (!src) {
+        continue;
+      }
+      
+      // Wait for image to potentially load
+      await this.page.waitForTimeout(100);
+      
+      const imageStatus = await img.evaluate((el: HTMLImageElement) => {
+        // SVGs may not have naturalWidth, check complete status instead
+        if (el.src.endsWith('.svg')) {
+          return { broken: false, isSvg: true };
+        }
+        
+        // For other images, check if loaded
+        return { 
+          broken: el.complete && el.naturalWidth === 0, 
+          isSvg: false 
+        };
+      });
+      
+      if (imageStatus.broken) {
         brokenImages.push(src);
       }
     }

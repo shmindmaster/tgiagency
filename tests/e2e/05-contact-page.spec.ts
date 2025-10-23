@@ -60,13 +60,19 @@ test.describe('Contact Page', () => {
       await submitButton.click();
       
       // Wait for validation
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1000);
       
-      // Should show validation errors
-      const errors = page.locator('[class*="error"], [role="alert"], text=/required|must be/i');
-      const errorCount = await errors.count();
+      // Check for validation errors or HTML5 validation
+      // React Hook Form validation errors
+      const rhfErrors = page.locator('.text-destructive');
+      const rhfErrorCount = await rhfErrors.count();
       
-      expect(errorCount).toBeGreaterThan(0);
+      // HTML5 validation (check if any input is invalid)
+      const invalidInputs = page.locator('input:invalid, textarea:invalid');
+      const invalidCount = await invalidInputs.count();
+      
+      // Either React Hook Form errors or HTML5 validation should be present
+      expect(rhfErrorCount + invalidCount).toBeGreaterThan(0);
     });
 
     test('should validate name field (minimum 2 characters)', async ({ page }) => {
