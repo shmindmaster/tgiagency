@@ -83,9 +83,14 @@ export async function POST(request: NextRequest) {
     // Validate request data with Zod
     const validatedData = quoteSubmissionSchema.parse(body);
 
-    // Initialize Supabase client with service role key for server-side operations
+    // Initialize Supabase client with service role key
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+    
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Supabase URL or Service Role Key is not defined.');
+    }
+    
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Insert into database
